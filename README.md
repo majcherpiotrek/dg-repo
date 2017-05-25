@@ -29,5 +29,5 @@ To get more help on the Angular CLI use `ng help` or go check out the [Angular C
 
 ## Packages to install before running the project
 
-`npm install --save bootstrap`
+`npm install --save bootstrap`    
 `npm install --save ng2-bootstrap`
