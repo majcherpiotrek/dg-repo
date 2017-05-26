@@ -16,9 +16,11 @@ Now just type `ng serve` and go to `localhost:4200` to verify if the app works.
 ## Creating new components
 
 You can create new components with `ng generate component component-name --nospec` (the `nospec` to skipe the .spec files)  
+
 If you want to nest the new component within another existing one type:  
 `ng generate component ./existing-component-name/new-nested-component-name --nospec`  
 (the root for this command is the `app` folder)  
+
 You can make the command shorter by just typing `ng g c new-component --nospec`
 
 
