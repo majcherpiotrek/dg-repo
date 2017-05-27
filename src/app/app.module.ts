@@ -10,6 +10,8 @@ import { SearchPageComponent } from './search-page/search-page.component';
 import { PresentationPageComponent } from './presentation-page/presentation-page.component';
 import { FormComponent } from './upload-page/form/form.component';
 import { CollapseDirective } from '../../node_modules/ng2-bootstrap/collapse';
+import { FileSnippetComponent } from './file-snippet/file-snippet.component';
+import { RecordSnippetComponent } from './shared/record-snippet/record-snippet.component';
 
 @NgModule({
   declarations: [
@@ -19,7 +21,9 @@ import { CollapseDirective } from '../../node_modules/ng2-bootstrap/collapse';
     SearchPageComponent,
     PresentationPageComponent,
     FormComponent,
-    CollapseDirective
+    CollapseDirective,
+    FileSnippetComponent,
+    RecordSnippetComponent
   ],
   imports: [
     BrowserModule,

@@ -1,4 +1,7 @@
-#container {
-  margin: 10px;
+.control-label {
+  margin: 5px;
 }
 
+#form {
+  padding: 5px;
+}

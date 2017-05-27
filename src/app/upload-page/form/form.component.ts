@@ -1,8 +1,8 @@
 import {Component, OnInit} from '@angular/core';
-import {RecordModel} from '../../entities/record.model';
-import {CitationType} from '../../entities/citation-type';
+import {RecordModel} from '../../shared/record.model';
+import {CitationType} from '../../shared/citation-type';
 import {RecordService} from '../../services/record.service';
-import {FileHeaderModel} from "../../entities/file-header.model";
+import {FileHeaderModel} from "../../shared/file-header.model";
 
 @Component({
   selector: 'app-form',
@@ -14,7 +14,6 @@ import {FileHeaderModel} from "../../entities/file-header.model";
 export class FormComponent implements OnInit {
 
   record: RecordModel;
-  files: File[] = [];
   selected: string;
   citationType = CitationType;
   isAddingFile = false;
@@ -30,10 +29,10 @@ export class FormComponent implements OnInit {
 
   fileChange(event: any) {
     this.isAddingFile = true;
-    // this.files.push(event.target.files[0]);
-    this.record.filesList = [].slice.call(event.target.files);
-    // input.value = this.files.map(f => f.name).join(', ');
-    for (const item of this.files) {
+    for (const file of event.target.files) {
+      this.record.filesList.push(file);
+    }
+    for (const item of this.record.filesList) {
         console.log(item.name);
     }
   }
@@ -43,6 +42,10 @@ export class FormComponent implements OnInit {
     this.record.fileHeaders.push(new FileHeaderModel());
     this.record.fileHeaders.push(new FileHeaderModel());
     this.record.fileHeaders.push(new FileHeaderModel());
+  }
+
+  enableSnippetView() {
+    return this.record.recordHeader.name !== '';
   }
 }
 

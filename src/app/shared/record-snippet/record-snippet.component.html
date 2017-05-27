@@ -1,0 +1,29 @@
+<div id="snippet-container" class="container-fluid">
+  <div class="row">
+    <div class="col-xs-12" style="padding: 20px">
+      <h2>{{ record.recordHeader.name}}</h2>
+      <p>{{ record.recordHeader.about }}</p>
+      <div *ngIf="isAuthorSpecified()">
+        <h3>Uploaded by:</h3> {{ record.recordHeader.author }} <br>
+      </div>
+      <div *ngIf="isCreatorSpecified()">
+        <h3>Created by:</h3> {{ record.recordHeader.creator.givenName }} 
+        {{ record.recordHeader.creator.additionalName }} {{ record.recordHeader.creator.familyName }}
+      </div>
+      <div *ngIf="record.filesList.length > 0">
+        <h3>Files:</h3>
+        <a href="#" class="list-group-item clearfix" *ngFor="let file of record.filesList">
+          <div class="row">
+            <div class="col-xs-12" >
+              <div class="pull-left">
+                <h4 class="list-group-item-heading">{{ file.name }}</h4>
+                <p class="list-group-item-text">Opis opis opis opis</p>
+              </div>
+            </div>
+          </div>
+        </a>
+      </div>
+    </div>
+  </div>
+</div>
+

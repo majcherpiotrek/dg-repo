@@ -4,7 +4,7 @@ import { Headers, RequestOptions } from '@angular/http';
 import {Observable} from 'rxjs/Observable';
 import 'rxjs/Rx';
 
-import {RecordModel} from '../entities/record.model';
+import {RecordModel} from '../shared/record.model';
 
 @Injectable()
 export class RecordService {

@@ -1,48 +1,41 @@
-<div id="container" class="container-fluid">
-  <div class="row">
-    <div class="col-md-6">
-      <div class="form-group">
-        <label class="control-label">Record name</label>
-        <input type="text" class="form-control" required [(ngModel)]="record.recordHeader.name" placeholder="Name the record" name="recordName">
-      </div>
-      <div class="form-group">
-        <label class="control-label">Author</label>
-        <input type="text" class="form-control" required [(ngModel)]="record.recordHeader.author" placeholder="Name the author" name="user">
-      </div>
-      <div class="form-group">
-        <label class="control-label">Description</label>
-        <input type="text" class="form-control" required [(ngModel)]="record.recordHeader.about" placeholder="Describe the record" name="description">
-      </div>
-      <hr>
-      <div class="row">
-        <div class="col-md-12">
-          <label class="control-label">Creator</label>
+<div class="row">
+  <!--Form-->
+  <form>
+      <div id="form" class="col-sm-4 form-group">
+        <!--Record header fields-->
+        <label for="record-name-input" class="control-label">Record name</label>
+        <input id="record-name-input" type="text" class="form-control" [(ngModel)]="record.recordHeader.name" placeholder="Name the record" name="name">
+        <label for="about-input" class="control-label">About the record</label>
+        <textarea 
+          id="about-input" 
+          type="text" 
+          class="form-control" 
+          [(ngModel)]="record.recordHeader.about" 
+          placeholder="Describe the record" 
+          name="about"
+          rows="5"></textarea>
+        <label for="author-input" class="control-label">Author</label>
+        <input id="author-input" type="text" class="form-control" required [(ngModel)]="record.recordHeader.author" placeholder="Name the author" name="author">
+        <label for="creator-input" class="control-label">Creator</label>
+      <div id="creator-input" class="row">
+        <div class="col-sm-4">
+          <input type="text" class="form-control" [(ngModel)]="record.recordHeader.creator.givenName" placeholder="name" name="recordName">
         </div>
-      </div>
-      <div class="row">
-        <div class="col-md-4">
-          <div class="form-group">
-            <input type="text" class="form-control" required [(ngModel)]="record.recordHeader.creator.givenName" placeholder="name" name="recordName">
-          </div>
+        <div class="col-sm-4">
+          <input type="text" class="form-control" [(ngModel)]="record.recordHeader.creator.additionalName" placeholder="additional names" name="recordName">
         </div>
-        <div class="col-md-4">
-          <div class="form-group">
-            <input type="text" class="form-control" required [(ngModel)]="record.recordHeader.creator.additionalname" placeholder="additional names" name="recordName">
-          </div>
-        </div>
-        <div class="col-md-4">
-          <div class="form-group">
-            <input type="text" class="form-control" required [(ngModel)]="record.recordHeader.creator.familyName" placeholder="surname" name="recordName">
-          </div>
+        <div class="col-sm-4">
+          <input type="text" class="form-control" [(ngModel)]="record.recordHeader.creator.familyName" placeholder="surname" name="recordName">
         </div>
       </div>
       <hr>
-      <div class="form-group">
-        <label class="form-control-label">Files</label>
-        <input type="file" class="form-control" style="margin: 5px" multiple (change)="fileChange($event)" placeholder="File to upload" name="file"/>
-      </div>
+      <!--end record header fields-->
+
+      <!--Files input-->
+        <label for="files-input" class="control-label">Files</label>
+        <input id="files-input" type="file" class="form-control" style="margin: 5px" multiple (change)="fileChange($event)" placeholder="File to upload" name="file"/>
       <div>
-        <button (click)="newRecord()" type="submit" class="btn btn-primary" style="margin: 5px">Add record</button>
+        <button (click)="newRecord()" type="submit" class="btn btn-block btn-success" style="margin: 5px">Add record</button>
       </div>
       <div>
         <select class="form-control" *ngIf="isAddingFile" (change)="onSelectChange($event.target.value)">
@@ -57,17 +50,18 @@
         </select>
       </div>
     </div>
-    <div id="snippet" class="col-md-6">
-      {{ record.toString() }}
-      {{ selected }}
-      <div class="row">
-        <div class="col-md-12" *ngFor="let item of record.fileHeaders">
-          {{ item.toString() }}
-        </div>
-      </div>
+  </form>
+
+  <div id="snippet" class="col-sm-7">
+    <!--<div class="col-sm-12">
+      
+      </div>-->
+      <app-record-snippet 
+        *ngIf="enableSnippetView()"
+        [record]="record"></app-record-snippet>
     </div>
   </div>
-</div>
+
 
 
 
