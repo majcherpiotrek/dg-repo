@@ -1,3 +1,16 @@
 #snippet-container {
     border: 3px inset lightgray;
 }
+
+#element:hover {
+    background-color: #f5f5f5;
+}
+
+#fileViewContent {
+    margin-top: 5px;
+    clear: both;
+}
+
+#fileViewHeading {
+    clear: both;
+}

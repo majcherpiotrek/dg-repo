@@ -1,5 +1,7 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { RecordModel } from '../record.model';
+import { FileHeaderModel } from '../file-header.model';
+
 @Component({
   selector: 'app-record-snippet',
   templateUrl: './record-snippet.component.html',
@@ -9,6 +11,7 @@ export class RecordSnippetComponent implements OnInit {
 
   @Input() record: RecordModel = new RecordModel();
   filesUnderEdit: File[] = [];
+
   constructor() { }
 
   ngOnInit() {
@@ -28,6 +31,7 @@ export class RecordSnippetComponent implements OnInit {
     const index = this.findFileIndex(file);
     if (index !== -1) {
       this.record.filesList.splice(index, 1);
+      this.record.fileHeaders.splice(index, 1);
     }
   }
 
@@ -47,5 +51,13 @@ export class RecordSnippetComponent implements OnInit {
 
   findFileIndex(file: File) {
     return this.record.filesList.findIndex(fileToCompare => fileToCompare === file);
+  }
+
+  onMetadataAdded(metadata: {file: File, header: FileHeaderModel}) {
+    const index = this.findFileIndex(metadata.file);
+    if (index !== -1) {
+      this.record.fileHeaders[index] = metadata.header;
+    }
+    this.enableFileEdit(metadata.file);
   }
 }

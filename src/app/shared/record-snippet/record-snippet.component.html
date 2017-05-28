@@ -12,22 +12,28 @@
       </div>
       <div *ngIf="record.filesList.length > 0">
         <h3>Files:</h3>
-        <a href="#" class="list-group-item clearfix" *ngFor="let file of record.filesList">
+        <div id="element" class="list-group-item clearfix" *ngFor="let file of record.filesList">
           <div class="row">
-            <div class="col-xs-12" >
-              <div class="pull-left">
-                <h4 class="list-group-item-heading">{{ file.name }}</h4>
-                <div *ngIf="isEditEnabled(file)" class="list-group-item-text">
-                  <app-file-edit></app-file-edit>
+            <div class="col-xs-12 ">
+              <div id="fileViewHeading" class="list-group-item-heading">
+                <h4 class="pull-left">{{ file.name }}</h4>
+                <div class="pull-right">
+                    <button type="button" class="btn btn-primary" (click) = "enableFileEdit(file)">Edit</button>
+                    <button type="button" class="btn btn-success">Details</button>
+                    <button type="button" class="btn btn-danger" (click) = "removeFile(file)">Delete</button>
                 </div>
               </div>
-              <div class="pull-right">
-                <button type="button" class="btn btn-primary" (click) = "enableFileEdit(file)">Edit</button>
-                <button type="button" class="btn btn-danger" (click) = "removeFile(file)">Delete</button>
-              </div>
+              <div id="fileViewContent" class="list-group-item-text">
+                <hr>
+                <div *ngIf="isEditEnabled(file)" style="clear: both">
+                  <app-file-edit 
+                  [file] = "file"
+                  (metadataAdded) = "onMetadataAdded($event)"></app-file-edit>
+                </div>
+              </div>   
             </div>
           </div>
-        </a>
+        </div>
       </div>
     </div>
   </div>

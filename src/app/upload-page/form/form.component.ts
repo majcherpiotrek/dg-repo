@@ -14,23 +14,16 @@ import {FileHeaderModel} from "../../shared/file-header.model";
 export class FormComponent implements OnInit {
 
   record: RecordModel;
-  selected: string;
-  citationType = CitationType;
-  isAddingFile = false;
   recordService: RecordService;
-
-  onSelectChange(value) {
-    this.selected = value;
-  }
 
   newRecord(event) {
     console.log(typeof this.recordService);
   }
 
   fileChange(event: any) {
-    this.isAddingFile = true;
     for (const file of event.target.files) {
       this.record.filesList.push(file);
+      this.record.fileHeaders.push(new FileHeaderModel());
     }
     for (const item of this.record.filesList) {
         console.log(item.name);
@@ -39,9 +32,6 @@ export class FormComponent implements OnInit {
 
   ngOnInit() {
     this.record = new RecordModel();
-    this.record.fileHeaders.push(new FileHeaderModel());
-    this.record.fileHeaders.push(new FileHeaderModel());
-    this.record.fileHeaders.push(new FileHeaderModel());
   }
 
   enableSnippetView() {

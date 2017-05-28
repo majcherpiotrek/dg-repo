@@ -37,18 +37,6 @@
       <div>
         <button (click)="newRecord()" type="submit" class="btn btn-block btn-success" style="margin: 5px">Add record</button>
       </div>
-      <div>
-        <select class="form-control" *ngIf="isAddingFile" (change)="onSelectChange($event.target.value)">
-          <option value="citationType.CreativeWork">Creative work</option>
-          <option value="citationType.Article">Article</option>
-          <option value="citationType.Book">Book</option>
-          <option value="citationType.AudioObject">Audio Object</option>
-          <option value="citationType.ImageObject">Image Object</option>
-          <option value="citationType.MusicRecording">Music Recording</option>
-          <option value="citationType.SoftwareSourceCode">Software Source Code</option>
-          <option [ngValue]="citationType.VideoObject">Video Object</option>
-        </select>
-      </div>
     </div>
   </form>
 
@@ -56,9 +44,18 @@
       <app-record-snippet 
         *ngIf="enableSnippetView()"
         [record]="record"></app-record-snippet>
-    </div>
   </div>
-
+</div>
+<div class="row">
+  {{ this.record.recordHeader.toString() }}
+    <hr>
+    <div *ngFor="let fileHeader of record.fileHeaders" style="clear: both">
+      {{ fileHeader.toString() }}
+    </div>
+    <div *ngFor="let file of record.filesList" style="clear: both">
+      {{ file.name }}
+    </div>
+</div>
 
 
 
