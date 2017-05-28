@@ -23,4 +23,12 @@ export class RecordSnippetComponent implements OnInit {
             || this.record.recordHeader.creator.additionalName !== ''
             || this.record.recordHeader.creator.familyName !== '';
   }
+
+  removeFile(file: File){
+    const index = this.record.filesList.findIndex(fileToCompare => fileToCompare === file);
+    if (index !== -1) {
+      this.record.filesList.splice(index, 1);
+    }
+  }
+
 }
