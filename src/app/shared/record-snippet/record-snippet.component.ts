@@ -8,7 +8,7 @@ import { RecordModel } from '../record.model';
 export class RecordSnippetComponent implements OnInit {
 
   @Input() record: RecordModel = new RecordModel();
-
+  filesUnderEdit: File[] = [];
   constructor() { }
 
   ngOnInit() {
@@ -24,11 +24,28 @@ export class RecordSnippetComponent implements OnInit {
             || this.record.recordHeader.creator.familyName !== '';
   }
 
-  removeFile(file: File){
-    const index = this.record.filesList.findIndex(fileToCompare => fileToCompare === file);
+  removeFile(file: File) {
+    const index = this.findFileIndex(file);
     if (index !== -1) {
       this.record.filesList.splice(index, 1);
     }
   }
 
+  enableFileEdit(file: File) {
+    const index = this.filesUnderEdit.findIndex(x => x === file);
+    if (index === -1) {
+      this.filesUnderEdit.push(file);
+    } else {
+      this.filesUnderEdit.splice(index, 1);
+    }
+  }
+
+  isEditEnabled(file: File) {
+    const index = this.filesUnderEdit.findIndex(x => x === file);
+    return index !== -1;
+  }
+
+  findFileIndex(file: File) {
+    return this.record.filesList.findIndex(fileToCompare => fileToCompare === file);
+  }
 }

@@ -12,6 +12,7 @@ import { FormComponent } from './upload-page/form/form.component';
 import { CollapseDirective } from '../../node_modules/ng2-bootstrap/collapse';
 import { FileSnippetComponent } from './file-snippet/file-snippet.component';
 import { RecordSnippetComponent } from './shared/record-snippet/record-snippet.component';
+import { FileEditComponent } from './shared/record-snippet/file-edit/file-edit.component';
 
 @NgModule({
   declarations: [
@@ -23,7 +24,8 @@ import { RecordSnippetComponent } from './shared/record-snippet/record-snippet.c
     FormComponent,
     CollapseDirective,
     FileSnippetComponent,
-    RecordSnippetComponent
+    RecordSnippetComponent,
+    FileEditComponent
   ],
   imports: [
     BrowserModule,
