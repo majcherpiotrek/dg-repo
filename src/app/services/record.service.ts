@@ -24,6 +24,7 @@ export class RecordService {
 
     const headers = new Headers();
     const options = new RequestOptions({headers: headers});
+    console.log('Sending POST with : ' + record.recordHeader.toString());
     this.http.post(this.recordUrl, formData, options)
       .toPromise()
       .then(this.extractData)
@@ -33,6 +34,8 @@ export class RecordService {
   private extractData(res: Response) {
     const body = res.json();
     alert(res.text);
+    console.log('Receiving response ...');
+    console.log(body.data);
     return body.data || {};
   }
 

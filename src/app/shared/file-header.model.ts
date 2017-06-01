@@ -2,7 +2,7 @@ import { PersonModel } from './person.model';
 import { CitationType } from './citation-type';
 
 export class FileHeaderModel {
-    public type: CitationType;
+    public type: string;
     public name: string;
     public about: string;
     public author: string;
@@ -29,7 +29,7 @@ export class FileHeaderModel {
     public videoFrameSize: string;
 
     public constructor() {
-      this.type = CitationType.CreativeWork;
+      this.type = CitationType[0];
       this.name = '';
       this.about = '';
       this.author = '';
@@ -51,7 +51,8 @@ export class FileHeaderModel {
     }
 
   public toString = () : string => {
-    return '{ "name":"' + this.name + '", ' +
+    return '{"type":"' + this.type + '", ' +
+      '"name":"' + this.name + '", ' +
       '"about":"' + this.about + '", ' +
       '"author":"' + this.author + '", ' +
       '"creator":' + this.creator.toString() + ', ' +

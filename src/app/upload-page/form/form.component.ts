@@ -6,6 +6,7 @@ import {FileHeaderModel} from "../../shared/file-header.model";
 
 @Component({
   selector: 'app-form',
+  providers: [ RecordService ],
   templateUrl: './form.component.html',
   styleUrls: [
     './form.component.css'
@@ -14,10 +15,11 @@ import {FileHeaderModel} from "../../shared/file-header.model";
 export class FormComponent implements OnInit {
 
   record: RecordModel;
-  recordService: RecordService;
 
+  constructor(private recordService: RecordService) {}
   newRecord(event) {
     console.log(this.record.toString());
+    this.recordService.addRecord(this.record);
   }
 
   fileChange(event: any) {

@@ -13,6 +13,7 @@ import { CollapseDirective } from '../../node_modules/ng2-bootstrap/collapse';
 import { FileSnippetComponent } from './file-snippet/file-snippet.component';
 import { RecordSnippetComponent } from './upload-page/form/record-snippet/record-snippet.component';
 import { FileEditComponent } from './upload-page/form/record-snippet/file-edit/file-edit.component';
+import { RecordService } from './services/record.service';
 
 @NgModule({
   declarations: [
@@ -32,7 +33,7 @@ import { FileEditComponent } from './upload-page/form/record-snippet/file-edit/f
     FormsModule,
     HttpModule
   ],
-  providers: [],
+  providers: [RecordService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

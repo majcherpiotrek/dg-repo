@@ -23,7 +23,7 @@ export class FileEditComponent implements OnInit {
   }
 
   onSelectionChange(value: CitationType) {
-    this.fileHeader.type = value;
+    this.fileHeader.type = value.toString();
   }
 
   onSaveMetadata() {
