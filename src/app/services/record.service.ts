@@ -15,15 +15,12 @@ export class RecordService {
 
   addRecord(record: RecordModel) {
     const formData = new FormData();
-    if (record.filesList.length > 0 ) {
-      for (const item of record.filesList) {
-        formData.append('filesList', item, item.name);
-      }
-    }
+    formData.append('recordHeader', record.recordHeader.toString());
 
-    formData.append('name', record.recordHeader.name);
-    formData.append('user', record.recordHeader.author);
-    formData.append('description', record.recordHeader.about);
+    for (let i = 0; i < record.filesList.length; i++) {
+      formData.append('filesList', record.filesList[i], record.filesList[i].name);
+      formData.append('fileHeaders', record.fileHeaders[i].toString());
+    }
 
     const headers = new Headers();
     const options = new RequestOptions({headers: headers});

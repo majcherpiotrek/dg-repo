@@ -11,6 +11,6 @@ export class RecordModel {
 
   public toString = () : string => {
     return '{ "recordHeader":' + this.recordHeader.toString() + ', ' +
-      '"fileHeaders":' + this.fileHeaders.toString() + '}';
+      '"fileHeaders":[' + this.fileHeaders.toString() + ']}';
   }
 }

@@ -11,8 +11,8 @@ import { PresentationPageComponent } from './presentation-page/presentation-page
 import { FormComponent } from './upload-page/form/form.component';
 import { CollapseDirective } from '../../node_modules/ng2-bootstrap/collapse';
 import { FileSnippetComponent } from './file-snippet/file-snippet.component';
-import { RecordSnippetComponent } from './shared/record-snippet/record-snippet.component';
-import { FileEditComponent } from './shared/record-snippet/file-edit/file-edit.component';
+import { RecordSnippetComponent } from './upload-page/form/record-snippet/record-snippet.component';
+import { FileEditComponent } from './upload-page/form/record-snippet/file-edit/file-edit.component';
 
 @NgModule({
   declarations: [

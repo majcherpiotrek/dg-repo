@@ -1,6 +1,6 @@
 import { Component, OnInit, Input } from '@angular/core';
-import { RecordModel } from '../record.model';
-import { FileHeaderModel } from '../file-header.model';
+import { RecordModel } from '../../../shared/record.model';
+import { FileHeaderModel } from '../../../shared/file-header.model';
 
 @Component({
   selector: 'app-record-snippet',

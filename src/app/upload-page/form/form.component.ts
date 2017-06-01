@@ -17,7 +17,7 @@ export class FormComponent implements OnInit {
   recordService: RecordService;
 
   newRecord(event) {
-    console.log(typeof this.recordService);
+    console.log(this.record.toString());
   }
 
   fileChange(event: any) {

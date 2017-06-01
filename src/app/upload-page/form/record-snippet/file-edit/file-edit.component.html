@@ -1,0 +1,94 @@
+<div class="container-fluid">
+  <form>
+    <div class="row">
+      <div class="col-12-sm form-group">
+        <label for="typeSelect" class="control-label">Select the citation type</label>
+        <select id="typeSelect" class="form-control" (change) = "onSelectionChange($event.target.value)">
+          <option value="CreativeWork">Creative work</option>
+          <option value="Article">Article</option>
+          <option value="Book">Book</option>
+          <option value="AudioObject">Audio Object</option>
+          <option value="ImageObject">Image Object</option>
+          <option value="MusicRecording">Music Recording</option>
+          <option value="SoftwareSourceCode">Software Source Code</option>
+          <option Value="VideoObject">Video Object</option>
+        </select>
+        
+        <div class="form-element">
+          <label for="citation-name-input" class="control-label">Citation name</label>
+          <input id="citation-name-input" type="text" class="form-control" [(ngModel)]="fileHeader.name" placeholder="name this citation..." name="citationName">
+        </div>
+
+        <div class="form-element">
+          <textarea 
+            id="citation-about-input" 
+            type="text" 
+            class="form-control" 
+            [(ngModel)]="fileHeader.about"  
+            name="about"
+            placeholder="describe this citation..."
+            rows="5"></textarea>
+        </div>
+        
+        <div class="form-element">
+          <label for="citation-creator-input" class="control-label">Creator</label>
+          <div id="citation-creator-input" class="row">
+            <div class="col-sm-4">
+              <input type="text" class="form-control" [(ngModel)]="fileHeader.creator.givenName" placeholder="name" name="givenName">
+            </div>
+            <div class="col-sm-4">
+              <input type="text" class="form-control" [(ngModel)]="fileHeader.creator.additionalName" placeholder="additional names" name="additionalName">
+            </div>
+            <div class="col-sm-4">
+              <input type="text" class="form-control" [(ngModel)]="fileHeader.creator.familyName" placeholder="surname" name="familyName">
+            </div>
+          </div> 
+        </div>
+
+        <div *ngIf="fileHeader.type!==types[0]">
+            <div *ngIf="fileHeader.type===types[1]" class="form-element">
+                  <label class="control-label">Book details</label>
+                  <input id="book-isbn-input" type="text" class="form-control details" placeholder="ISBN e.g. 978-2-1234-5680-3" name="isbn">
+                  <input id="book-nop-input" type="number" class="form-control details" placeholder="number of pages" name="nop">
+                  <input id="book-edition-input" type="text" class="form-control details" placeholder="book edition" name="edition">
+            </div>
+            <div *ngIf="fileHeader.type===types[2]" class="form-element">
+                  <label class="control-label">Article details</label>
+                  <input id="article-section-input" type="text" class="form-control details" placeholder="article section - e.g. sports, finance ..." name="section">
+            </div>
+            <div *ngIf="fileHeader.type===types[3]" class="form-element">
+                  <label class="control-label">Image details</label>
+                  <input id="imageObject-caption-input" type="text" class="form-control details" placeholder="add caption" name="caption">
+            </div>
+            <div *ngIf="fileHeader.type===types[4]" class="form-element">
+                  <label class="control-label">Software source code details</label>
+                  <input id="ssc-repo-input" type="url" class="form-control details" placeholder="e.g. https://github.com/piotrmajcher94/dg-frontend.git" name="repo">
+                  <input id="ssc-lang-input" type="text" class="form-control details" placeholder="programming language" name="lang">
+                  <input id="ssc-platform-input" type="text" class="form-control details" placeholder="runtime platform" name="platform">
+            </div>
+            <div *ngIf="fileHeader.type===types[5]" class="form-element">
+                  <label class="control-label">Music recording details</label>
+                  <input id="music-artist-input" type="text" class="form-control details" placeholder="artist" name="artist">
+                  <input id="music-album-input" type="text" class="form-control details" placeholder="album" name="album">
+                  <input id="music-duration-input" type="text" class="form-control details" placeholder="recording duration" name="duration">
+            </div>
+            <div *ngIf="fileHeader.type===types[7]" class="form-element">
+              <label for="director-input" class="control-label">Director</label>
+              <div id="citation-creator-input" class="row">
+                <div class="col-sm-4">
+                  <input type="text" class="form-control" placeholder="name" name="directorName">
+                </div>
+                <div class="col-sm-4">
+                  <input type="text" class="form-control" placeholder="additional names" name="directorName">
+                </div>
+                <div class="col-sm-4">
+                  <input type="text" class="form-control" placeholder="surname" name="directorName">
+                </div>
+              </div> 
+            </div>
+        </div>
+        <button type="submit" class="btn btn-block btn-success" (click) = "onSaveMetadata()">Save</button>
+      </div>
+    </div>
+  </form>
+</div>
