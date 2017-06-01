@@ -15,7 +15,6 @@ import {FileHeaderModel} from "../../shared/file-header.model";
 export class FormComponent implements OnInit {
 
   record: RecordModel;
-  responseString: string;
   @Output() uploadFinished = new EventEmitter<{responseBody: JSON}>();
 
   constructor(private recordService: RecordService) {}
@@ -25,12 +24,11 @@ export class FormComponent implements OnInit {
       .subscribe(
         (response) => {
           console.log(response);
-          this.responseString = response.toString();
           this.uploadFinished.emit({responseBody: response.json()});
         },
         (error) => {
           console.log(error);
-          this.responseString = error.toString();
+          this.uploadFinished.emit({responseBody: error.json()});
         }
       );
   }
