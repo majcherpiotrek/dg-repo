@@ -1,4 +1,4 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, OnInit, Output, EventEmitter } from '@angular/core';
 import {RecordModel} from '../../shared/record.model';
 import {CitationType} from '../../shared/citation-type';
 import {RecordService} from '../../services/record.service';
@@ -15,11 +15,24 @@ import {FileHeaderModel} from "../../shared/file-header.model";
 export class FormComponent implements OnInit {
 
   record: RecordModel;
+  responseString: string;
+  @Output() uploadFinished = new EventEmitter<{responseBody: JSON}>();
 
   constructor(private recordService: RecordService) {}
   newRecord(event) {
     console.log(this.record.toString());
-    this.recordService.addRecord(this.record);
+    this.recordService.addRecord(this.record)
+      .subscribe(
+        (response) => {
+          console.log(response);
+          this.responseString = response.toString();
+          this.uploadFinished.emit({responseBody: response.json()});
+        },
+        (error) => {
+          console.log(error);
+          this.responseString = error.toString();
+        }
+      );
   }
 
   fileChange(event: any) {

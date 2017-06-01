@@ -7,8 +7,15 @@ import { Component, OnInit } from '@angular/core';
 })
 export class UploadPageComponent implements OnInit {
 
-  constructor() { }
+  private showForm = true;
+  private responseJSON: JSON;
+  private out = '';
 
+  onUploadFinished(event: JSON) {
+    this.responseJSON = event;
+    this.out = JSON.stringify(this.responseJSON);
+    this.showForm = false;
+  }
   ngOnInit() {
   }
 

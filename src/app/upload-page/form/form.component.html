@@ -46,16 +46,7 @@
         [record]="record"></app-record-snippet>
   </div>
 </div>
-<div class="row">
-  {{ this.record.recordHeader.toString() }}
-    <hr>
-    <div *ngFor="let fileHeader of record.fileHeaders" style="clear: both">
-      {{ fileHeader.toString() }}
-    </div>
-    <div *ngFor="let file of record.filesList" style="clear: both">
-      {{ file.name }}
-    </div>
-</div>
+{{ responseString }}
 
 
 

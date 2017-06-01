@@ -68,7 +68,7 @@ export class FileHeaderModel {
       '"inAlbum":"' + this.inAlbum + '", ' +
       '"duration":"' + this.duration + '", ' +
       '"director":' + this.director.toString() + ', ' +
-      '"actor":' + this.actor + ', ' +
+      '"actor":' + this.actor.toString() + ', ' +
       '"videoFrameSize":"' + this.videoFrameSize + '"}';
   }
 }

@@ -9,26 +9,27 @@ import {RecordModel} from '../shared/record.model';
 @Injectable()
 export class RecordService {
 
-  private recordUrl = 'https://localhost:8081/api/upload';
+  private recordUrl = 'http://localhost:8081/api/upload';
 
   constructor(private http: Http) { }
 
   addRecord(record: RecordModel) {
     const formData = new FormData();
     formData.append('recordHeader', record.recordHeader.toString());
-
+    let fileHeadersString = '[';
     for (let i = 0; i < record.filesList.length; i++) {
       formData.append('filesList', record.filesList[i], record.filesList[i].name);
-      formData.append('fileHeaders', record.fileHeaders[i].toString());
+      fileHeadersString += record.fileHeaders[i].toString();
+      if (i < record.filesList.length - 1) {
+        fileHeadersString += ',';
+      }
     }
-
+    fileHeadersString += ']';
+    formData.append('fileHeaders', fileHeadersString);
     const headers = new Headers();
     const options = new RequestOptions({headers: headers});
     console.log('Sending POST with : ' + record.recordHeader.toString());
-    this.http.post(this.recordUrl, formData, options)
-      .toPromise()
-      .then(this.extractData)
-      .catch(this.handleError);
+    return this.http.post(this.recordUrl, formData, options);
   }
 
   private extractData(res: Response) {
