@@ -1,7 +1,8 @@
 # Project setup instruction
 
-## Frontend:
+Clone this repository `git clone https://github.com/piotrmajcher94/dg-repo.git`
 
+## Frontend:
 ### How to start
 
 Check if you have node installed, type `npm version` in the terminal/command line,  
@@ -9,9 +10,7 @@ if you don't have it install it [from here](https://www.npmjs.com/package/npm).
 
 Install the Angular CLI with `npm install -g @angular/cli`  
 
-Clone this repository `git clone https://github.com/piotrmajcher94/dg-frontend.git`
-
-Open the termina/command line in the folder of the cloned repository and type `npm install`
+Open the termina/command line in the "frontend" folder in the cloned repository and type `npm install`
 
 Now just type `ng serve` and go to `localhost:4200` to verify if the app works.
 
@@ -54,3 +53,36 @@ Before running the tests make sure you are serving the app via `ng serve`.
 ### Further help
 
 To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI README](https://github.com/angular/angular-cli/blob/master/README.md).
+
+## Backend:
+
+1. Setup MongoDB on Windows (without docker) [instruction on the mongo website] (https://docs.mongodb.com/manual/tutorial/install-mongodb-on-windows/)
+* download mongodb for windows from [here](https://www.mongodb.com/download-center#community)
+(These instructions assume that you have installed MongoDB to C:\Program Files\MongoDB\Server\3.4\)
+* open command line as an administrator and create two directories:<br />   
+> mkdir c:\data\db      
+> mkdir c:\data\log
+* create Mongo configuration file - mongo.cfg : `C:\Program Files\MongoDB\Server\3.4\mongod.cfg`
+* add following lines to the configuration file you just created:<br />      
+> systemLog:        
+> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;destination: file
+> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;path: c:\data\log\mongod.log   
+> storage:        
+> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;dbPath: c:\data\db
+* now run this command to install mongo db service : `"C:\Program Files\MongoDB\Server\3.4\bin\mongod.exe" --config "C:\Program Files\MongoDB\Server\3.4\mongod.cfg" --install`
+
+Now you can always start the MongoDB service now from the command line (running as administrator) by typing:    
+`net start MongoDB`   
+or stop it with   
+`net stop MongoDB`   
+
+The MongoDB should be available at `localhost:27017`. If any problems occur, check the mongo log at     
+`C:\data\log\mongod.log`   
+
+2. Start the spring boot project in IntelliJ:
+* open the "backend" directory in IntelliJ (leave all configurations deafault - there should be using gradle wrapper checked as default etc.)
+* refresh gradle project to download all dependencies: View -> Tool Windows -> Gradle, when the gradle window appears click the "Refresh all gradle projects" button (left upper corner of the gradle window).
+* setup run configuration: Run -> Edit configurations -> cliclk "+", choose "Spring Boot", main class should be "com.dgteam.dgbackend.DgBackendApplication", "Use classpath of module:" -> "dg-backend-main". Then "Apply", "OK" and you should have this run configuration available.
+
+When running the project make sure that the MongoDB service is up and running. The application handles `requests on localhost:8080`
+
