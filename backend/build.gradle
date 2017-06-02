@@ -1,0 +1,39 @@
+buildscript {
+	ext {
+		springBootVersion = '1.5.3.RELEASE'
+	}
+	repositories {
+		mavenCentral()
+	}
+	dependencies {
+		classpath("org.springframework.boot:spring-boot-gradle-plugin:${springBootVersion}")
+	}
+}
+
+apply plugin: 'java'
+apply plugin: 'eclipse'
+apply plugin: 'org.springframework.boot'
+
+version = '0.0.1-SNAPSHOT'
+sourceCompatibility = 1.8
+
+repositories {
+	mavenCentral()
+}
+
+
+dependencies {
+	compile('org.springframework.data:spring-data-mongodb:1.10.3.RELEASE')
+	compile('org.springframework.boot:spring-boot-starter-data-mongodb')
+	compile('org.springframework.boot:spring-boot-starter-web')
+	compileOnly('org.projectlombok:lombok')
+	testCompile('org.springframework.boot:spring-boot-starter-test')
+	compile 'com.drewnoakes:metadata-extractor:2.10.1'
+	compile "com.fasterxml.jackson.datatype:jackson-datatype-json-org"
+	compile "com.fasterxml.jackson.datatype:jackson-datatype-hppc"
+	compile "com.fasterxml.jackson.datatype:jackson-datatype-jsr310"
+	compile "com.fasterxml.jackson.core:jackson-annotations"
+	compile "com.fasterxml.jackson.core:jackson-databind"
+	testCompile "junit:junit"
+	testCompile "org.mockito:mockito-core"
+}
