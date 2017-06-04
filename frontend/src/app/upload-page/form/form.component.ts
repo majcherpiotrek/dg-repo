@@ -15,14 +15,14 @@ import {FileHeaderModel} from "../../shared/file-header.model";
 export class FormComponent implements OnInit {
 
   record: RecordModel;
-  recordHasInitialize = false;
+  hasRecordInitialized = false;
   
   @Output() uploadFinished = new EventEmitter<{responseBody: JSON}>();
 
   constructor(private recordService: RecordService) {}
 
   initNewRecord(event) {
-    this.recordHasInitialize = true;
+    this.hasRecordInitialized = true;
   }
 
   newRecord(event) {
@@ -55,7 +55,11 @@ export class FormComponent implements OnInit {
   }
 
   enableSnippetView() {
-    return this.recordHasInitialize;
+    return this.hasRecordInitialized;
+  }
+
+  ifRecordInitialized() {
+    return this.hasRecordInitialized
   }
 }
 

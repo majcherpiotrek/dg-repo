@@ -2,6 +2,10 @@
   margin: 5px;
 }
 
+.upload-file-button {
+  background-color: red;
+}
+
 #form {
   padding: 5px;
 }
