@@ -15,9 +15,16 @@ import {FileHeaderModel} from "../../shared/file-header.model";
 export class FormComponent implements OnInit {
 
   record: RecordModel;
+  recordHasInitialize = false;
+  
   @Output() uploadFinished = new EventEmitter<{responseBody: JSON}>();
 
   constructor(private recordService: RecordService) {}
+
+  initNewRecord(event) {
+    this.recordHasInitialize = true;
+  }
+
   newRecord(event) {
     console.log(this.record.toString());
     this.recordService.addRecord(this.record)
@@ -48,7 +55,7 @@ export class FormComponent implements OnInit {
   }
 
   enableSnippetView() {
-    return this.record.recordHeader.name !== '';
+    return this.recordHasInitialize;
   }
 }
 

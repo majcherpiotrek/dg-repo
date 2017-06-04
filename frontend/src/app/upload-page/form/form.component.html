@@ -35,7 +35,7 @@
         <label for="files-input" class="control-label">Files</label>
         <input id="files-input" type="file" class="form-control" style="margin: 5px" multiple (change)="fileChange($event)" placeholder="File to upload" name="file"/>
       <div>
-        <button (click)="newRecord()" type="submit" class="btn btn-block btn-success" style="margin: 5px">Add record</button>
+        <button (click)="initNewRecord()" type="submit" class="btn btn-block btn-success" style="margin: 5px">Add record</button>
       </div>
     </div>
   </form>
