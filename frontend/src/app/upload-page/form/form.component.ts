@@ -32,10 +32,12 @@ export class FormComponent implements OnInit {
         (response) => {
           console.log(response);
           this.uploadFinished.emit({responseBody: response.json()});
+          alert("Succesfull upload!");
         },
         (error) => {
           console.log(error);
           this.uploadFinished.emit({responseBody: error.json()});
+          alert("Upload failed!");
         }
       );
   }
@@ -59,7 +61,11 @@ export class FormComponent implements OnInit {
   }
 
   ifRecordInitialized() {
-    return this.hasRecordInitialized
+    return this.hasRecordInitialized;
+  }
+
+  hasRecordName() {
+    return this.record.recordHeader.name !== '';
   }
 }
 

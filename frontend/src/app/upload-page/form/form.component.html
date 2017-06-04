@@ -35,7 +35,7 @@
         <label for="files-input" class="control-label">Files</label>
         <input id="files-input" type="file" class="form-control" style="margin: 5px" multiple (change)="fileChange($event)" placeholder="File to upload" name="file"/>
       <div>
-        <button *ngIf=!(ifRecordInitialized()) (click)="initNewRecord()" type="submit" class="btn btn-block btn-success" style="margin: 5px">Init record</button>
+        <button *ngIf="!(ifRecordInitialized()) && hasRecordName()" (click)="initNewRecord()" type="submit" class="btn btn-block btn-success" style="margin: 5px">Init record</button>
       </div>
     </div>
   </form>
@@ -46,7 +46,7 @@
         [record]="record"></app-record-snippet>
   </div>
   <div>
-    <button *ngIf=ifRecordInitialized() (click)="newRecord()" type="submit" class="upload-file-button" style="margin: 5px">Upload record</button>
+    <button *ngIf="ifRecordInitialized()" (click)="newRecord()" type="submit" class="btn btn-block btn-success upload-file-button" style="margin: 5px">Upload record</button>
   </div>
 </div>
 
