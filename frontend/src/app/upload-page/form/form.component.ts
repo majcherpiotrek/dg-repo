@@ -56,10 +56,6 @@ export class FormComponent implements OnInit {
     this.record = new RecordModel();
   }
 
-  enableSnippetView() {
-    return this.hasRecordInitialized;
-  }
-
   ifRecordInitialized() {
     return this.hasRecordInitialized;
   }

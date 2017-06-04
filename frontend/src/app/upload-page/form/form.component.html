@@ -1,7 +1,8 @@
+<div class="col-sm-2"></div>
 <div class="row">
   <!--Form-->
   <form *ngIf=!(ifRecordInitialized())>
-      <div id="form" class="col-sm-4 form-group">
+      <div id="form" class="col-sm-8 form-group">
         <!--Record header fields-->
         <label for="record-name-input" class="control-label">Record name</label>
         <input id="record-name-input" type="text" class="form-control" [(ngModel)]="record.recordHeader.name" placeholder="Name the record" name="name">
@@ -35,20 +36,25 @@
         <label for="files-input" class="control-label">Files</label>
         <input id="files-input" type="file" class="form-control" style="margin: 5px" multiple (change)="fileChange($event)" placeholder="File to upload" name="file"/>
       <div>
-        <button *ngIf="!(ifRecordInitialized()) && hasRecordName()" (click)="initNewRecord()" type="submit" class="btn btn-block btn-success" style="margin: 5px">Init record</button>
+        <button [disabled]="!(hasRecordName())" (click)="initNewRecord()" type="submit" class="btn btn-block btn-success" style="margin: 5px">Create record</button>
       </div>
     </div>
   </form>
 
-  <div id="snippet" class="col-sm-7">
-      <app-record-snippet 
-        *ngIf="enableSnippetView()"
+  <div id="snippet" class="col-sm-8">
+      <app-record-snippet
+        *ngIf="ifRecordInitialized()"
         [record]="record"></app-record-snippet>
-  </div>
-  <div>
-    <button *ngIf="ifRecordInitialized()" (click)="newRecord()" type="submit" class="btn btn-block btn-success upload-file-button" style="margin: 5px">Upload record</button>
+        <div class="col-sm-13">
+          <button [class.upload-file-button-mouseOver]="mouseOver" (mouseout)="mouseOver=false" (mouseover)="mouseOver=true"
+          [class.upload-file-button-mouseOut]="!mouseOver" 
+           *ngIf="ifRecordInitialized()" (click)="newRecord()" type="submit" class="btn btn-block btn-success upload-file-button-mouseOut" style="margin: 5px">
+           Upload record
+          </button>
+        </div>
   </div>
 </div>
+<div class="col-sm-2"></div>
 
 
 

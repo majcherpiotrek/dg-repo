@@ -2,9 +2,12 @@
   margin: 5px;
 }
 
-.upload-file-button {
-  background-color: red; 
-  width: 200px;
+.upload-file-button-mouseOver {
+  background-color: green;
+}
+
+.upload-file-button-mouseOut {
+  background-color: grey;
 }
 
 #form {
