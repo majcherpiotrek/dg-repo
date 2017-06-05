@@ -14,6 +14,7 @@ import { FileSnippetComponent } from './file-snippet/file-snippet.component';
 import { RecordSnippetComponent } from './upload-page/form/record-snippet/record-snippet.component';
 import { FileEditComponent } from './upload-page/form/record-snippet/file-edit/file-edit.component';
 import { RecordService } from './services/record.service';
+import {AppRoutingModule} from './app-routing.module';
 
 @NgModule({
   declarations: [
@@ -31,7 +32,8 @@ import { RecordService } from './services/record.service';
   imports: [
     BrowserModule,
     FormsModule,
-    HttpModule
+    HttpModule,
+    AppRoutingModule
   ],
   providers: [RecordService],
   bootstrap: [AppComponent]
