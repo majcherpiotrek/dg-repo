@@ -2,14 +2,6 @@
   margin: 5px;
 }
 
-.upload-file-button-mouseOver {
-  background-color: green;
-}
-
-.upload-file-button-mouseOut {
-  background-color: grey;
-}
-
 #form {
   padding: 5px;
 }
