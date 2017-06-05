@@ -1,4 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
+import {RecordService} from '../services/record.service';
+import {RecordModel} from '../shared/record.model';
 
 @Component({
   selector: 'app-search-page',
@@ -7,7 +9,15 @@ import { Component, OnInit } from '@angular/core';
 })
 export class SearchPageComponent implements OnInit {
 
-  constructor() { }
+  private showedRecord: RecordModel;
+
+  constructor(private recordService: RecordService) {
+  }
+
+  getRecordById(id) {
+    return this.recordService.getRecord(id).subscribe((r: RecordModel) => this.showedRecord = r);
+  }
+
 
   ngOnInit() {
   }

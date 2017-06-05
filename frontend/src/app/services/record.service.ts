@@ -9,7 +9,9 @@ import {RecordModel} from '../shared/record.model';
 @Injectable()
 export class RecordService {
 
-  private recordUrl = 'http://localhost:8080/api/upload';
+  private backUrl = 'http://localhost:8080/';
+  private getSingleRecordUrl = 'records?record-id=';
+  private uploadUrl = 'api/upload';
 
   constructor(private http: Http) { }
 
@@ -29,7 +31,7 @@ export class RecordService {
     const headers = new Headers();
     const options = new RequestOptions({headers: headers});
     console.log('Sending POST with : ' + record.recordHeader.toString());
-    return this.http.post(this.recordUrl, formData, options);
+    return this.http.post(this.backUrl+this.uploadUrl, formData, options);
   }
 
   private extractData(res: Response) {
@@ -43,5 +45,12 @@ export class RecordService {
   private handleError(error: Response) {
     console.error(error);
     return Observable.throw(error.json().error || 'Server Error');
+  }
+
+  getRecord(id: string) {
+    const url = `${this.backUrl}${this.getSingleRecordUrl}${id}`;
+    console.log('GET from ' + url);
+    return this.http.get(url)
+      .map((res: Response) => <RecordModel> res.json());
   }
 }
