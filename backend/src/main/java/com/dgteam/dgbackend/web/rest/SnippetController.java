@@ -22,12 +22,12 @@ public class SnippetController {
 
     @Autowired
     private SchemaOrgHeaderRepository schemaOrgHeaderRepository;
-
+    
     /**
      * Returns a list of snippets specified by record-name
      */
     @RequestMapping(value = "", method = RequestMethod.GET)
-    public List<SnippetDTO> get(@RequestParam("searchArg=") String recordName) {
+    public List<SnippetDTO> get(@RequestParam("searchArg") String recordName) {
         return schemaOrgHeaderRepository.findAllBy(new TextCriteria().forDefaultLanguage().matchingAny(recordName))
                 .stream()
                 .map(SnippetDTO::new)
