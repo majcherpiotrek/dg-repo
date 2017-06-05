@@ -1,3 +1,9 @@
-<p>
-  presentation-page works!
-</p>
+<div id="search-component">
+  <input #searchBox id="search-box" (keyup)="search(searchBox.value)" />
+  <div>
+    <div *ngFor="let snipp of snippets | async"
+         (click)="gotoDetail(snip)" class="search-result" >
+      {{snipp.author}}
+    </div>
+  </div>
+</div>
