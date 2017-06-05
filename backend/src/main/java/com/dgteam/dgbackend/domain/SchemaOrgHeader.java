@@ -1,10 +1,10 @@
 package com.dgteam.dgbackend.domain;
 
-import com.fasterxml.jackson.core.JsonGenerator;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.mongodb.DBObject;
 import org.springframework.data.annotation.Id;
+import org.springframework.data.mongodb.core.index.TextIndexed;
+import org.springframework.data.mongodb.core.mapping.Document;
 
 import java.time.LocalDateTime;
 import java.util.LinkedList;
@@ -15,14 +15,18 @@ import java.util.List;
  * Headers are stored in a "record-headers" collection.
  * Created by Piotrek on 04.05.2017.
  */
+@Document
 public class SchemaOrgHeader {
 
     @Id
     private String id;
     private final String context = "http://schema.org";
     private final String type = "CreativeWork";
+    @TextIndexed
     private String name;
+    @TextIndexed
     private String about;
+    @TextIndexed
     private String author;
     private SchemaOrgPerson creator = null;
     private LocalDateTime dateCreated;
