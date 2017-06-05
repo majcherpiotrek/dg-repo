@@ -46,9 +46,7 @@
         *ngIf="ifRecordInitialized()"
         [record]="record"></app-record-snippet>
         <div class="col-sm-13">
-          <button [class.upload-file-button-mouseOver]="mouseOver" (mouseout)="mouseOver=false" (mouseover)="mouseOver=true"
-          [class.upload-file-button-mouseOut]="!mouseOver" 
-           *ngIf="ifRecordInitialized()" (click)="newRecord()" type="submit" class="btn btn-block btn-success upload-file-button-mouseOut" style="margin: 5px">
+          <button id="uploadButton" *ngIf="ifRecordInitialized()" (click)="newRecord()" type="submit" class="btn btn-block btn-success" style="margin: 5px">
            Upload record
           </button>
         </div>
