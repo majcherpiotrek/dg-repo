@@ -33,4 +33,13 @@ public class SnippetController {
                 .collect(Collectors.toList());
     }
 
+    @CrossOrigin(origins = "http://localhost:4200")
+    @RequestMapping(value = "/byAuthor", method = RequestMethod.GET)
+    public List<SnippetDTO> getByAuthor(@RequestParam("searchArg") String author) {
+        return schemaOrgHeaderRepository.findByAuthor(author)
+                .stream()
+                .map(SnippetDTO::new)
+                .collect(Collectors.toList());
+    }
+
 }

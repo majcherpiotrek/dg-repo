@@ -1,0 +1,36 @@
+<div id="search-component">
+  <div class="col-sm-10 col-md-offset-1">
+    <div class="input-group">
+      <span class="input-group-addon">Give here your user name</span>
+      <input #searchBox id="search-box" type="text" class="form-control" (keyup)="search(searchBox.value)" name="msg"
+             placeholder="enter keywords">
+    </div>
+  </div>
+</div>
+<br>
+<br>
+<div class="container">
+  <div class="row">
+    <div class="col-sm-6">
+      <div *ngIf="showResultsLabel">
+        <h4>Results:</h4>
+      </div>
+      <ul class="list-group">
+        <div *ngFor="let snipp of snippets | async" (click)="gotoDetail(snipp)" class="search-result">
+          <div class="container">
+            <div class="col">
+              <div class="col-sm-6">
+                <li class="list-group-item">
+                  {{snipp.recordName}}
+                </li>
+              </div>
+            </div>
+          </div>
+        </div>
+      </ul>
+    </div>
+    <div *ngIf="record">
+      <app-record [content]="record"></app-record>
+    </div>
+  </div>
+</div>

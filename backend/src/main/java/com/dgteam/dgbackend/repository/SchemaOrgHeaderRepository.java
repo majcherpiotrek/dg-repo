@@ -16,5 +16,7 @@ public interface SchemaOrgHeaderRepository extends MongoRepository<SchemaOrgHead
 
     List<SchemaOrgHeader> findAllBy(TextCriteria crit);
 
+    List<SchemaOrgHeader> findByAuthor(String author);
+
     SchemaOrgHeader findById(String id);
 }

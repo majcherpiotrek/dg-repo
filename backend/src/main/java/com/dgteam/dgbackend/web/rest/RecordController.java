@@ -9,10 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.mongodb.core.query.Criteria;
 import org.springframework.data.mongodb.core.query.Query;
 import org.springframework.data.mongodb.gridfs.GridFsTemplate;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
@@ -22,6 +19,7 @@ import java.util.List;
  * Records Endpoint
  * Created by Adas, Piotrek on 2017-05-16.
  */
+@CrossOrigin(origins = "http://localhost:4200")
 @RestController
 @RequestMapping("/api/records")
 public class RecordController {
@@ -36,14 +34,15 @@ public class RecordController {
     /**
      * Returns a single record specified by record-id
      */
+    @CrossOrigin(origins = "http://localhost:4200")
     @RequestMapping(method = RequestMethod.GET)
-    public RecordDTO getRecord(@RequestParam("record-id") String recordId){
+    public RecordDTO getRecord(@RequestParam("record-id") String recordId) {
         SchemaOrgHeader header = schemaOrgHeaderRepository.findById(recordId);
         List<GridFSDBFile> files = gridFsTemplate.find(new Query(Criteria.where("metadata.recordId").is(recordId)));
         return new RecordDTO(header, files);
     }
 
-
+    @CrossOrigin(origins = "http://localhost:4200")
     @RequestMapping(value = "/zip", produces = "application/zip")
     public void getZip(@RequestParam("record-id") String recordId, HttpServletResponse response) throws IOException {
         List<GridFSDBFile> files = gridFsTemplate.find(new Query(Criteria.where("metadata.recordId").is(recordId)));
@@ -56,7 +55,7 @@ public class RecordController {
 
 
     private void prepareResponse(HttpServletResponse response, String recordName) {
-        response.addHeader("Content-Disposition", "attachment; filename=\""+ recordName +"\"");
+        response.addHeader("Content-Disposition", "attachment; filename=\"" + recordName + "\"");
         response.setStatus(HttpServletResponse.SC_OK);
     }
 
