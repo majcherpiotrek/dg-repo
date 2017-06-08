@@ -1,29 +1,22 @@
 import {Component, OnInit} from '@angular/core';
+import {PresentationPageComponent} from '../presentation-page/presentation-page.component';
 import {SnippetService} from '../services/snippet.service';
-import {Snippet} from '../shared/snippet.model';
-import 'rxjs/add/observable/of';
-import {Observable} from 'rxjs/Observable';
-import {Subject} from 'rxjs/Subject';
-import {RecordDetailsModel} from '../shared/record-details.model';
 import {RecordService} from '../services/record.service';
+import {Observable} from 'rxjs/Observable';
+import {Snippet} from '../shared/snippet.model';
+import {RecordDetailsModel} from '../shared/record-details.model';
 
 @Component({
-  selector: 'app-presentation-page',
-  templateUrl: './presentation-page.component.html',
-  styleUrls: ['./presentation-page.component.css']
+  selector: 'app-dashboard-presentation',
+  templateUrl: './dashboard-presentation.component.html',
+  styleUrls: ['./dashboard-presentation.component.css']
 })
-export class PresentationPageComponent implements OnInit {
+export class DashboardPresentationComponent extends PresentationPageComponent implements OnInit {
 
-  protected snippets: Observable<Snippet[]>;
-  protected record: RecordDetailsModel;
-  protected searchTerms = new Subject<string>();
-  protected showResultsLabel = false;
-  protected showDetails = false;
-
-  constructor(protected snippetService: SnippetService, protected recordService: RecordService) {
+  constructor(snippetService: SnippetService, recordService: RecordService) {
+    super(snippetService, recordService);
   }
 
-  // Push a search term into the observable stream.
   search(term: string): void {
     this.showResultsLabel = true;
     this.searchTerms.next(term);
@@ -35,7 +28,7 @@ export class PresentationPageComponent implements OnInit {
       .distinctUntilChanged()   // ignore if next search term is same as previous
       .switchMap(term => term   // switch to new observable each time the term changes
         // return the http search observable
-        ? this.snippetService.searchSnippet(term)
+        ? this.snippetService.getSnippetsByAuthor(term)
         // or the observable of empty heroes if there was no search term
         : Observable.of<Snippet[]>([]))
       .catch(error => {
@@ -50,7 +43,7 @@ export class PresentationPageComponent implements OnInit {
     // let link = ['/detail', hero.id];
     // this.router.navigate(link);
     this.recordService.getRecordDetails(snipp.id).subscribe((r: RecordDetailsModel) => this.record = r);
+
     this.showDetails = !this.showDetails;
   }
-  
 }

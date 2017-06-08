@@ -16,6 +16,8 @@ import {FileEditComponent} from './upload-page/form/record-snippet/file-edit/fil
 import {RecordService} from './services/record.service';
 import {AppRoutingModule} from './app-routing.module';
 import {SnippetService} from './services/snippet.service';
+import { DashboardPresentationComponent } from './dashboard-presentation/dashboard-presentation.component';
+import { RecordComponent } from './record/record.component';
 
 @NgModule({
   declarations: [
@@ -28,7 +30,9 @@ import {SnippetService} from './services/snippet.service';
     CollapseDirective,
     FileSnippetComponent,
     RecordSnippetComponent,
-    FileEditComponent
+    FileEditComponent,
+    DashboardPresentationComponent,
+    RecordComponent
   ],
   imports: [
     BrowserModule,

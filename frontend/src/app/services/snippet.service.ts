@@ -8,6 +8,7 @@ export class SnippetService {
 
   private backUrl = 'http://localhost:8080/';
   private singleRecord = 'api/snippets?searchArg=';
+  private byAuthor = 'api/snippets/byAuthor?searchArg=';
 
   constructor(private http: Http) {
   }
@@ -16,7 +17,14 @@ export class SnippetService {
     const url = `${this.backUrl}${this.singleRecord}${query}`;
     console.log('GET from ' + url);
     return this.http.get(url)
-      .map((res: Response) =>  res.json());
+      .map((res: Response) => res.json());
+  }
+
+  getSnippetsByAuthor(author: string) {
+    const url = `${this.backUrl}${this.byAuthor}${author}`;
+    console.log('GET from ' + url);
+    return this.http.get(url)
+      .map((res: Response) => res.json());
   }
 
 

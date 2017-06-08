@@ -55,7 +55,8 @@ export class RecordService {
       .map((res: Response) => <RecordModel> res.json());
   }
 
-  getRecordDetails(id: string){
+
+  getRecordDetails(id: string) {
     const url = `${this.backUrl}${this.getSingleRecordUrl}${id}`;
     console.log('GET from ' + url);
     return this.http.get(url)

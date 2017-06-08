@@ -36,13 +36,13 @@ public class RecordController {
      */
     @CrossOrigin(origins = "http://localhost:4200")
     @RequestMapping(method = RequestMethod.GET)
-    public RecordDTO getRecord(@RequestParam("record-id") String recordId){
+    public RecordDTO getRecord(@RequestParam("record-id") String recordId) {
         SchemaOrgHeader header = schemaOrgHeaderRepository.findById(recordId);
         List<GridFSDBFile> files = gridFsTemplate.find(new Query(Criteria.where("metadata.recordId").is(recordId)));
         return new RecordDTO(header, files);
     }
 
-
+    @CrossOrigin(origins = "http://localhost:4200")
     @RequestMapping(value = "/zip", produces = "application/zip")
     public void getZip(@RequestParam("record-id") String recordId, HttpServletResponse response) throws IOException {
         List<GridFSDBFile> files = gridFsTemplate.find(new Query(Criteria.where("metadata.recordId").is(recordId)));
@@ -56,7 +56,7 @@ public class RecordController {
 
     @CrossOrigin(origins = "http://localhost:4200")
     private void prepareResponse(HttpServletResponse response, String recordName) {
-        response.addHeader("Content-Disposition", "attachment; filename=\""+ recordName +"\"");
+        response.addHeader("Content-Disposition", "attachment; filename=\"" + recordName + "\"");
         response.setStatus(HttpServletResponse.SC_OK);
     }
 

@@ -8,7 +8,7 @@ export class RecordDetailsModel {
     //public dateCreated: LocalDateTime;
     //public citations: Array<CitationMetadata>;
     //public filesNames: Array<String>;
-    
+  
     public constructor() {
       this.id = '';
       this.name = '';
@@ -17,9 +17,9 @@ export class RecordDetailsModel {
     }
 
   public toString = () : string => {
-    return '{"id":"' + this.id + '", ' 
-        + '"name":"' + this.name + '", ' 
-        + '"about":"' + this.about + '", ' 
+    return '{"id":"' + this.id + '", '
+        + '"name":"' + this.name + '", '
+        + '"about":"' + this.about + '", '
         + '"author":"' + this.author + '"}';
   }
 }
