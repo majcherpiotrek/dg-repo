@@ -4,8 +4,6 @@ import {Snippet} from '../shared/snippet.model';
 import 'rxjs/add/observable/of';
 import {Observable} from 'rxjs/Observable';
 import {Subject} from 'rxjs/Subject';
-import {RecordDetailsModel} from '../shared/record-details.model';
-import {RecordService} from '../services/record.service';
 
 @Component({
   selector: 'app-presentation-page',
@@ -15,17 +13,13 @@ import {RecordService} from '../services/record.service';
 export class PresentationPageComponent implements OnInit {
 
   snippets: Observable<Snippet[]>;
-  record: RecordDetailsModel;
   private searchTerms = new Subject<string>();
-  private showResultsLabel = false;
-  private showDetails = false;
-  
-  constructor(private snippetService: SnippetService, private recordService: RecordService) {
+
+  constructor(private snippetService: SnippetService) {
   }
 
   // Push a search term into the observable stream.
   search(term: string): void {
-    this.showResultsLabel = true;
     this.searchTerms.next(term);
   }
 
@@ -40,7 +34,6 @@ export class PresentationPageComponent implements OnInit {
         : Observable.of<Snippet[]>([]))
       .catch(error => {
         // TODO: add real error handling
-        this.showResultsLabel = false;
         console.log(error);
         return Observable.of<Snippet[]>([]);
       });
@@ -49,8 +42,6 @@ export class PresentationPageComponent implements OnInit {
   gotoDetail(snipp: Snippet): void {
     // let link = ['/detail', hero.id];
     // this.router.navigate(link);
-    this.recordService.getRecordDetails(snipp.id).subscribe((r:RecordDetailsModel)=>this.record=r);
-    this.showDetails = !this.showDetails;
   }
-  
+
 }

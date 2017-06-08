@@ -9,7 +9,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.mongodb.core.query.Criteria;
 import org.springframework.data.mongodb.core.query.Query;
 import org.springframework.data.mongodb.gridfs.GridFsTemplate;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RestController;
 
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
@@ -19,7 +22,6 @@ import java.util.List;
  * Records Endpoint
  * Created by Adas, Piotrek on 2017-05-16.
  */
-@CrossOrigin(origins = "http://localhost:4200")
 @RestController
 @RequestMapping("/api/records")
 public class RecordController {
@@ -34,7 +36,6 @@ public class RecordController {
     /**
      * Returns a single record specified by record-id
      */
-    @CrossOrigin(origins = "http://localhost:4200")
     @RequestMapping(method = RequestMethod.GET)
     public RecordDTO getRecord(@RequestParam("record-id") String recordId){
         SchemaOrgHeader header = schemaOrgHeaderRepository.findById(recordId);
@@ -54,7 +55,6 @@ public class RecordController {
     }
 
 
-    @CrossOrigin(origins = "http://localhost:4200")
     private void prepareResponse(HttpServletResponse response, String recordName) {
         response.addHeader("Content-Disposition", "attachment; filename=\""+ recordName +"\"");
         response.setStatus(HttpServletResponse.SC_OK);

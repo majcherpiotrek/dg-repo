@@ -5,13 +5,12 @@ import {Observable} from 'rxjs/Observable';
 import 'rxjs/Rx';
 
 import {RecordModel} from '../shared/record.model';
-import {RecordDetailsModel} from '../shared/record-details.model';
 
 @Injectable()
 export class RecordService {
 
   private backUrl = 'http://localhost:8080/';
-  private getSingleRecordUrl = 'api/records?record-id=';
+  private getSingleRecordUrl = 'records?record-id=';
   private uploadUrl = 'api/upload';
 
   constructor(private http: Http) { }
@@ -53,12 +52,5 @@ export class RecordService {
     console.log('GET from ' + url);
     return this.http.get(url)
       .map((res: Response) => <RecordModel> res.json());
-  }
-
-  getRecordDetails(id: string){
-    const url = `${this.backUrl}${this.getSingleRecordUrl}${id}`;
-    console.log('GET from ' + url);
-    return this.http.get(url)
-      .map((res: Response) => <RecordDetailsModel> res.json());
   }
 }
