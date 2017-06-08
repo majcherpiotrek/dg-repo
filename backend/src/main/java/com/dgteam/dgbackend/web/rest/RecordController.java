@@ -54,6 +54,7 @@ public class RecordController {
     }
 
 
+    @CrossOrigin(origins = "http://localhost:4200")
     private void prepareResponse(HttpServletResponse response, String recordName) {
         response.addHeader("Content-Disposition", "attachment; filename=\"" + recordName + "\"");
         response.setStatus(HttpServletResponse.SC_OK);

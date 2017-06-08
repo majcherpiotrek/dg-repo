@@ -25,6 +25,7 @@ export class PresentationPageComponent implements OnInit {
 
   // Push a search term into the observable stream.
   search(term: string): void {
+    this.showResultsLabel = true;
     this.searchTerms.next(term);
   }
 
@@ -39,6 +40,7 @@ export class PresentationPageComponent implements OnInit {
         : Observable.of<Snippet[]>([]))
       .catch(error => {
         // TODO: add real error handling
+        this.showResultsLabel = false;
         console.log(error);
         return Observable.of<Snippet[]>([]);
       });
@@ -50,5 +52,5 @@ export class PresentationPageComponent implements OnInit {
     this.recordService.getRecordDetails(snipp.id).subscribe((r: RecordDetailsModel) => this.record = r);
     this.showDetails = !this.showDetails;
   }
-
+  
 }
