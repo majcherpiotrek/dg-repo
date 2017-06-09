@@ -1,11 +1,11 @@
-import { Injectable } from '@angular/core';
-import { Http, Response } from '@angular/http';
-import { Headers, RequestOptions } from '@angular/http';
-import { Observable } from 'rxjs/Observable';
+import {Injectable} from '@angular/core';
+import {Http, Response} from '@angular/http';
+import {Headers, RequestOptions} from '@angular/http';
+import {Observable} from 'rxjs/Observable';
 import 'rxjs/Rx';
 
-import { RecordModel } from '../shared/record.model';
-import { RecordDetailsModel } from '../shared/record-details.model';
+import {RecordModel} from '../shared/record.model';
+import {RecordDetailsModel} from '../shared/record-details.model';
 
 @Injectable()
 export class RecordService {
@@ -15,7 +15,8 @@ export class RecordService {
   private uploadUrl = 'api/upload';
   private downloadZip = 'api/records/zip?record-id=';
 
-  constructor(private http: Http) { }
+  constructor(private http: Http) {
+  }
 
   addRecord(record: RecordModel) {
     const formData = new FormData();
@@ -31,7 +32,7 @@ export class RecordService {
     fileHeadersString += ']';
     formData.append('fileHeaders', fileHeadersString);
     const headers = new Headers();
-    const options = new RequestOptions({ headers: headers });
+    const options = new RequestOptions({headers: headers});
     console.log('Sending POST with : ' + record.recordHeader.toString());
     return this.http.post(this.backUrl + this.uploadUrl, formData, options);
   }
@@ -70,5 +71,11 @@ export class RecordService {
     //console.log('GET from ' + url);
     //return this.http.get(url).map((res: Response) => <string>res.json());
     return url;
+  }
+
+  deleteRecord(id: string) {
+    const url = `${this.backUrl}${this.getSingleRecordUrl}${id}`;
+    console.log('DELETE from ' + url);
+    return this.http.delete(url).map((res: Response) => res);
   }
 }

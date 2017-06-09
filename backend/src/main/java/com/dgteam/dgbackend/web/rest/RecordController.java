@@ -53,6 +53,12 @@ public class RecordController {
         zipService.makeAndForwardZip(files, response);
     }
 
+    @CrossOrigin(origins = "http://localhost:4200")
+    @RequestMapping(method = RequestMethod.DELETE)
+    public String deleteRecord(@RequestParam("record-id") String recordId) {
+        schemaOrgHeaderRepository.delete(recordId);
+        return "Record " + recordId + " deleted";
+    }
 
     private void prepareResponse(HttpServletResponse response, String recordName) {
         response.addHeader("Content-Disposition", "attachment; filename=\"" + recordName + "\"");

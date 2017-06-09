@@ -20,10 +20,10 @@
 
 .list-group-item:hover {
   color: black;
-  background: lightgreen;
+  /*background: lightgreen;*/
 }
 
 .form-control:hover {
   color: black;
-  background: lightgreen;
+  /*background: lightgreen;*/
 }
