@@ -1,9 +1,58 @@
 <div id="search-component">
+<<<<<<< HEAD
   <input #searchBox id="search-box" (keyup)="search(searchBox.value)" />
   <div>
     <div *ngFor="let snipp of snippets | async"
          (click)="gotoDetail(snip)" class="search-result" >
       {{snipp.author}}
+    </div>
+  </div>
+</div>
+  <div class="col-sm-8 col-md-offset-2">
+    <div class="input-group">
+      <span class="input-group-addon">Search</span>
+      <input #searchBox id="search-box" type="text" class="form-control" (keyup)="search(searchBox.value)" name="msg" placeholder="enter keywords">
+    </div>
+  </div>
+</div>
+<br>
+<br>
+<div class="container">
+  <div class="row">
+    <div class="col-sm-3">
+      <div *ngIf="showResultsLabel">
+        <h4>Results:</h4>
+      </div>
+      <ul class="list-group">
+        <div *ngFor="let snipp of snippets | async" (click)="gotoDetail(snipp)" class="search-result">
+          <div class="container">
+            <div class="col">
+              <div class="col-sm-3">
+                <li class="list-group-item">
+                  {{snipp.recordName}}
+                </li>
+              </div>
+            </div>
+          </div>
+        </div>
+      </ul>
+    </div>
+    <div class="col-sm-8">
+      <ul class="list-group">
+        <div *ngIf="showDetails">
+          <h4>Details:</h4>
+          <li class="list-group-item">
+            <h4>
+              ID: {{ record.id }}<br><br>Name: {{ record.name }}<br><br>About: {{ record.about }}<br><br>Author: {{ record.author
+              }}
+              <br><br>
+              <!--{{ filesList }}<br>-->
+              <button id="getZipButton" (click)="getZip(record.id)" type="sumbit" class="btn btn-success">Download .ZIP</button>
+              <br>
+            </h4>
+          </li>
+        </div>
+      </ul>
     </div>
   </div>
 </div>

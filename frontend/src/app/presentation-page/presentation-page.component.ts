@@ -6,6 +6,9 @@ import {Observable} from 'rxjs/Observable';
 import {Subject} from 'rxjs/Subject';
 import {RecordDetailsModel} from '../shared/record-details.model';
 import {RecordService} from '../services/record.service';
+import {FileHeaderModel} from "../shared/file-header.model";
+// import {RecordModel} from '../shared/record.model';
+// import {FileHeaderModel} from '../shared/file-header.model';
 
 @Component({
   selector: 'app-presentation-page',
@@ -16,9 +19,13 @@ export class PresentationPageComponent implements OnInit {
 
   protected snippets: Observable<Snippet[]>;
   protected record: RecordDetailsModel;
+  // protected recordM: RecordModel;
   protected searchTerms = new Subject<string>();
   protected showResultsLabel = false;
   protected showDetails = false;
+  // protected zip: File;
+  // protected url: string;
+  protected filesList: string;
 
   constructor(protected snippetService: SnippetService, protected recordService: RecordService) {
   }
@@ -48,7 +55,21 @@ export class PresentationPageComponent implements OnInit {
     // let link = ['/detail', hero.id];
     // this.router.navigate(link);
     this.recordService.getRecordDetails(snipp.id).subscribe((r: RecordDetailsModel) => this.record = r);
+
+    this.recordService.getRecord(snipp.id).subscribe((rM: RecordModel) => this.recordM = rM);
+    this.filesList = '';
+    var temp: FileHeaderModel[] = this.recordM.fileHeaders
+    temp.forEach((element) => {
+      this.filesList += element.toString();
+      this.filesList += "\t";
+    });
+    // this.recordM.fileHeaders.toString();
+    */
     this.showDetails = !this.showDetails;
   }
 
+  getZip(id: string){
+    // this.recordService.getZip(id).subscribe((u: string) => this.url = u);
+    window.open(this.recordService.getZip(id));
+  }
 }
