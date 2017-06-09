@@ -4,9 +4,14 @@
       <h4>Details:</h4>
       <li class="list-group-item">
         <h4>
-          ID: {{ record.id }}<br><br>Name: {{ record.name }}<br><br>About: {{ record.about }}<br><br>Author: {{
-          record.author
-          }}
+          <div class="col-sm-2">ID:</div>
+          <div class="col-lg-10">{{ record.id }}</div>
+          <div class="col-sm-2">Name:</div>
+          <div class="col-lg-10">{{ record.name }}</div>
+          <div class="col-sm-2">About:</div>
+          <div class="col-lg-10">{{ record.about }}</div>
+          <div class="col-sm-2">Author:</div>
+          <div class="col-lg-10">{{ record.author }}</div>
           <br><br>
           <!--{{ filesList }}<br>-->
           <div class="row">
