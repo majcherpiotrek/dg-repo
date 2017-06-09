@@ -18,3 +18,13 @@
   background-color: #607D8B;
 }
 */
+
+.list-group-item:hover {
+  color: black;
+  background: lightgreen;
+}
+
+.form-control:hover {
+  color: black;
+  background: lightgreen;
+}

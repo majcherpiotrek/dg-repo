@@ -1,11 +1,11 @@
-import {Injectable} from '@angular/core';
-import {Http, Response} from '@angular/http';
+import { Injectable } from '@angular/core';
+import { Http, Response } from '@angular/http';
 import { Headers, RequestOptions } from '@angular/http';
-import {Observable} from 'rxjs/Observable';
+import { Observable } from 'rxjs/Observable';
 import 'rxjs/Rx';
 
-import {RecordModel} from '../shared/record.model';
-import {RecordDetailsModel} from '../shared/record-details.model';
+import { RecordModel } from '../shared/record.model';
+import { RecordDetailsModel } from '../shared/record-details.model';
 
 @Injectable()
 export class RecordService {
@@ -13,6 +13,7 @@ export class RecordService {
   private backUrl = 'http://localhost:8080/';
   private getSingleRecordUrl = 'api/records?record-id=';
   private uploadUrl = 'api/upload';
+  private downloadZip = 'api/records/zip?record-id=';
 
   constructor(private http: Http) { }
 
@@ -30,9 +31,9 @@ export class RecordService {
     fileHeadersString += ']';
     formData.append('fileHeaders', fileHeadersString);
     const headers = new Headers();
-    const options = new RequestOptions({headers: headers});
+    const options = new RequestOptions({ headers: headers });
     console.log('Sending POST with : ' + record.recordHeader.toString());
-    return this.http.post(this.backUrl+this.uploadUrl, formData, options);
+    return this.http.post(this.backUrl + this.uploadUrl, formData, options);
   }
 
   private extractData(res: Response) {
@@ -52,7 +53,7 @@ export class RecordService {
     const url = `${this.backUrl}${this.getSingleRecordUrl}${id}`;
     console.log('GET from ' + url);
     return this.http.get(url)
-      .map((res: Response) => <RecordModel> res.json());
+      .map((res: Response) => <RecordModel>res.json());
   }
 
 
@@ -60,6 +61,14 @@ export class RecordService {
     const url = `${this.backUrl}${this.getSingleRecordUrl}${id}`;
     console.log('GET from ' + url);
     return this.http.get(url)
-      .map((res: Response) => <RecordDetailsModel> res.json());
+      .map((res: Response) => <RecordDetailsModel>res.json());
+  }
+
+  getZip(id: string) {
+    const url = `${this.backUrl}${this.downloadZip}${id}`;
+    console.log('download link: ' + url);
+    //console.log('GET from ' + url);
+    //return this.http.get(url).map((res: Response) => <string>res.json());
+    return url;
   }
 }
