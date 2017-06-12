@@ -42,10 +42,9 @@
     </div>
   </form>
 
-  <div id="snippet" class="col-sm-8">
+  <div id="snippet" *ngIf="ifRecordInitialized()" class="col-sm-8">
     <h1>{{ getPromptText() }}</h1>
       <app-record-snippet
-        *ngIf="ifRecordInitialized()"
         [record]="record"></app-record-snippet>
         <div class="col-sm-13">
           <button id="uploadButton" *ngIf="ifRecordInitialized()" (click)="newRecord()" type="submit" class="btn btn-block btn-success" style="margin: 5px">
