@@ -8,7 +8,7 @@ export class RecordDetailsModel {
     //public dateCreated: LocalDateTime;
     //public citations: Array<CitationMetadata>;
     //public filesNames: Array<String>;
-  
+
     public constructor() {
       this.id = '';
       this.name = '';

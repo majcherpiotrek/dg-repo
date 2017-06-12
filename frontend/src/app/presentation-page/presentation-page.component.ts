@@ -57,15 +57,15 @@ export class PresentationPageComponent implements OnInit {
     // this.router.navigate(link);
     this.recordService.getRecordDetails(snipp.id).subscribe((r: RecordDetailsModel) => this.record = r);
     /*
-    this.recordService.getRecord(snipp.id).subscribe((rM: RecordModel) => this.recordM = rM);
-    this.filesList = '';
-    var temp: FileHeaderModel[] = this.recordM.fileHeaders
-    temp.forEach((element) => {
-      this.filesList += element.toString();
-      this.filesList += "\t";
-    });
-    // this.recordM.fileHeaders.toString();
-    */
+     this.recordService.getRecord(snipp.id).subscribe((rM: RecordModel) => this.recordM = rM);
+     this.filesList = '';
+     var temp: FileHeaderModel[] = this.recordM.fileHeaders
+     temp.forEach((element) => {
+     this.filesList += element.toString();
+     this.filesList += "\t";
+     });
+     // this.recordM.fileHeaders.toString();
+     */
     this.showDetails = !this.showDetails;
   }
 

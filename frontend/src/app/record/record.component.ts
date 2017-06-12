@@ -1,5 +1,6 @@
 import {Component, Input, OnInit} from '@angular/core';
 import {RecordDetailsModel} from '../shared/record-details.model';
+import {RecordService} from '../services/record.service';
 
 @Component({
   selector: 'app-record',
@@ -9,12 +10,21 @@ import {RecordDetailsModel} from '../shared/record-details.model';
 export class RecordComponent implements OnInit {
 
   @Input()
-  content: RecordDetailsModel;
+  record: RecordDetailsModel;
 
-  constructor() {
+  constructor(private recordService: RecordService) {
   }
 
   ngOnInit() {
   }
+
+  deleteRecord() {
+    this.recordService.deleteRecord(this.record.id).subscribe(res => {
+      this.record = null;
+      alert(res);
+    });
+  }
+
+  editRecord(){}
 
 }
