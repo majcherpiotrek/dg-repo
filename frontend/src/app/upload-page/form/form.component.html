@@ -3,6 +3,7 @@
   <!--Form-->
   <form *ngIf=!(ifRecordInitialized())>
       <div id="form" class="col-sm-8 form-group">
+        <h1>{{ getPromptText() }}</h1>
         <!--Record header fields-->
         <label for="record-name-input" class="control-label">Record name</label>
         <input id="record-name-input" type="text" class="form-control" [(ngModel)]="record.recordHeader.name" placeholder="Name the record" name="name">
@@ -42,6 +43,7 @@
   </form>
 
   <div id="snippet" class="col-sm-8">
+    <h1>{{ getPromptText() }}</h1>
       <app-record-snippet
         *ngIf="ifRecordInitialized()"
         [record]="record"></app-record-snippet>

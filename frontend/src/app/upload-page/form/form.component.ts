@@ -16,6 +16,8 @@ export class FormComponent implements OnInit {
 
   record: RecordModel;
   hasRecordInitialized = false;
+  private promptRecordHeader = '1. Set new record\'s details and add files!';
+  private promptCitationEdit = '2. Edit your files\' metadata!';
 
   @Output() uploadFinished = new EventEmitter<RecordModel | JSON>();
 
@@ -63,6 +65,10 @@ export class FormComponent implements OnInit {
 
   hasRecordName() {
     return this.record.recordHeader.name !== '';
+  }
+
+  getPromptText() {
+    return this.hasRecordInitialized ? this.promptCitationEdit : this.promptRecordHeader;
   }
 }
 
