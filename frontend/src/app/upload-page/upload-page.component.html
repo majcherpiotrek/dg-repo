@@ -1,11 +1,12 @@
 <div class="container-fluid">
-    <app-form
-        *ngIf = "showForm"
-        (uploadFinished) = "onUploadFinished($event)"></app-form>
-    <div *ngIf = "!showForm">
-        <h1>Response after upload:</h1>
-        <p>{{ out }}</p>
-        <button type="button" class="btn btn-success" (click) = "showForm = !showForm">Add another record!</button>
-    </div>  
+  <app-form
+    *ngIf="showForm"
+    (uploadFinished)="onUploadFinished($event)"></app-form>
+  <div *ngIf="!showForm">
+    <h1>Response after upload:</h1>
+    <!--<p>{{ out }}</p>-->
+    <app-record [record]="out"></app-record>
+    <button type="button" class="col-sm-8 btn btn-success" (click)="showForm = !showForm">Add another record!</button>
+  </div>
 </div>
 

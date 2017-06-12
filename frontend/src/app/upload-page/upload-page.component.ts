@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
+import {RecordModel} from '../shared/record.model';
 
 @Component({
   selector: 'app-upload-page',
@@ -8,14 +9,16 @@ import { Component, OnInit } from '@angular/core';
 export class UploadPageComponent implements OnInit {
 
   private showForm = true;
-  private responseJSON: JSON;
-  private out = '';
+  private responseJSON;
+  private out: RecordModel;
 
   onUploadFinished(event: JSON) {
     this.responseJSON = event;
-    this.out = JSON.stringify(this.responseJSON);
+    console.log(<RecordModel> this.responseJSON);
+    this.out = <RecordModel> this.responseJSON;
     this.showForm = false;
   }
+
   ngOnInit() {
   }
 

@@ -1,4 +1,4 @@
-import {Component, OnInit, Output, EventEmitter } from '@angular/core';
+import {Component, OnInit, Output, EventEmitter} from '@angular/core';
 import {RecordModel} from '../../shared/record.model';
 import {CitationType} from '../../shared/citation-type';
 import {RecordService} from '../../services/record.service';
@@ -6,7 +6,7 @@ import {FileHeaderModel} from "../../shared/file-header.model";
 
 @Component({
   selector: 'app-form',
-  providers: [ RecordService ],
+  providers: [RecordService],
   templateUrl: './form.component.html',
   styleUrls: [
     './form.component.css'
@@ -16,10 +16,11 @@ export class FormComponent implements OnInit {
 
   record: RecordModel;
   hasRecordInitialized = false;
-  
-  @Output() uploadFinished = new EventEmitter<{responseBody: JSON}>();
 
-  constructor(private recordService: RecordService) {}
+  @Output() uploadFinished = new EventEmitter<RecordModel | JSON>();
+
+  constructor(private recordService: RecordService) {
+  }
 
   initNewRecord(event) {
     this.hasRecordInitialized = true;
@@ -31,12 +32,12 @@ export class FormComponent implements OnInit {
       .subscribe(
         (response) => {
           console.log(response);
-          this.uploadFinished.emit({responseBody: response.json()});
+          this.uploadFinished.emit(<RecordModel> response.json());
           alert("Succesfull upload!");
         },
         (error) => {
           console.log(error);
-          this.uploadFinished.emit({responseBody: error.json()});
+          this.uploadFinished.emit(error.json());
           alert("Upload failed!");
         }
       );
@@ -48,7 +49,7 @@ export class FormComponent implements OnInit {
       this.record.fileHeaders.push(new FileHeaderModel());
     }
     for (const item of this.record.filesList) {
-        console.log(item.name);
+      console.log(item.name);
     }
   }
 
