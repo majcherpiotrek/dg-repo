@@ -2,6 +2,7 @@ package com.dgteam.dgbackend.web.util;
 
 import com.dgteam.dgbackend.domain.CitationMetadata;
 import com.dgteam.dgbackend.domain.ReceivedRecordHeader;
+import com.dgteam.dgbackend.domain.ReviewStatus;
 import com.dgteam.dgbackend.domain.SchemaOrgPerson;
 import com.dgteam.dgbackend.domain.schemaorg.enums.CitationType;
 import com.dgteam.dgbackend.domain.schemaorg.enums.CreativeWorkTags;
@@ -44,6 +45,9 @@ public class JsonToMetadataObjectsParser {
         String about = mapper.convertValue(node.get("about"),String.class);
         String author = mapper.convertValue(node.get("author"),String.class);
         String description = mapper.convertValue(node.get("description"),String.class);
+        String reviewedBy = mapper.convertValue(node.get("reviewed_by"),String.class);
+        ReviewStatus reviewStatus = mapper.convertValue(node.get("review_status"),ReviewStatus.class);
+
         JsonNode personNode = node.get("creator");
         SchemaOrgPerson person = new SchemaOrgPerson();
         for (String personTag : person.getTagsList()) {

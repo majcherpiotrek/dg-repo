@@ -32,6 +32,8 @@ public class SchemaOrgHeaderFactory {
         recordHeader.setAbout(receivedRecordHeader.getAbout());
         recordHeader.setAuthor(receivedRecordHeader.getAuthor());
         recordHeader.setCreator(receivedRecordHeader.getCreator());
+        recordHeader.setReviewedBy(receivedRecordHeader.getReviewedBy());
+        recordHeader.setReviewStatus(receivedRecordHeader.getReviewStatus());
 
         if( filesList.size() != citationMetadataList.size()) {
             throw new Exception("SchemaOrgHeaderFactory: Files list doesn't match the metadata list.");
