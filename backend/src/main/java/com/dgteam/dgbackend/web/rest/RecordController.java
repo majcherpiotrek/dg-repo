@@ -42,6 +42,9 @@ public class RecordController {
         return new RecordDTO(header, files);
     }
 
+    /**
+     *  Returns all records attachments as ZIP file
+     */
     @CrossOrigin(origins = "http://localhost:4200")
     @RequestMapping(value = "/zip", produces = "application/zip")
     public void getZip(@RequestParam("record-id") String recordId, HttpServletResponse response) throws IOException {
@@ -50,7 +53,11 @@ public class RecordController {
         String recordName = extractRecordName(files);
         prepareResponse(response, recordName);
 
-        zipService.makeAndForwardZip(files, response);
+        try {
+            zipService.makeAndForwardZip(files, response);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
     @CrossOrigin(origins = "http://localhost:4200")
