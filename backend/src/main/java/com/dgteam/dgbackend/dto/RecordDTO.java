@@ -7,6 +7,7 @@ import com.dgteam.dgbackend.domain.SchemaOrgPerson;
 import com.mongodb.gridfs.GridFSDBFile;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -31,9 +32,10 @@ public class RecordDTO {
         this.creator = header.getCreator();
         this.dateCreated = header.getDateCreated();
         this.citations = header.getCitations();
-        this.filesNames = files.stream()
-            .map(x -> x.getFilename())
-            .collect(Collectors.toList());
+        this.filesNames = new ArrayList<>();
+        for (GridFSDBFile file : files) {
+            this.filesNames.add((String)file.getMetaData().get("fileName"));
+        }
     }
 
     public String getId() {

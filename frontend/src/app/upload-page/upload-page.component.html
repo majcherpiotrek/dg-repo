@@ -3,9 +3,7 @@
   <app-form *ngIf="showForm" (uploadFinished)="onUploadFinished($event)"></app-form>
   <div *ngIf="!showForm">
     <h1>Response after upload:</h1>
-    <app-record [record]="out"></app-record>
-    <h4>Link to download record:</h4>
-    <a target="blank" href="{{downloadLink}}">{{downloadLink}}</a>
+    <app-record [record]="out" [url]="downloadLink"></app-record>
     <button type="button" class="col-sm-8 btn btn-success" (click)="showForm = !showForm">Add another record!</button>
   </div>
 </div>

@@ -1,12 +1,11 @@
+import { PersonModel } from './person.model';
 
 export class RecordDetailsModel {
   public id: string;
   public name: string;
   public about: string;
   public author: string;
-  //public creator: SchemaOrgPerson;
-  //public dateCreated: LocalDateTime;
-  //public citations: Array<CitationMetadata>;
+  public creator: PersonModel;
   public filesNames: Array<string>;
 
   public constructor() {

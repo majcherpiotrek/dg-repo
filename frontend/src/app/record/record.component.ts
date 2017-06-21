@@ -11,12 +11,11 @@ import {RecordService} from '../services/record.service';
 })
 export class RecordComponent implements OnInit {
 
-  @Input()
-  record: RecordDetailsModel;
+  @Input() record: RecordDetailsModel;
   filesList: Array<string>;
   showFilesListOn: boolean = false;
   editRecordOn: boolean = false;
-  url: string;
+  @Input() url: string;
 
   constructor(private recordService: RecordService) {
   }
@@ -36,7 +35,6 @@ export class RecordComponent implements OnInit {
   }
 
   getZip(id: string){
-    // this.recordService.getZip(id).subscribe((u: string) => this.url = u);
     window.open(this.recordService.getZip(id));
   }
 

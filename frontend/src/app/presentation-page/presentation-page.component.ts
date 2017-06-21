@@ -55,6 +55,10 @@ export class PresentationPageComponent implements OnInit {
     // let link = ['/detail', hero.id];
     // this.router.navigate(link);
     this.recordService.getRecordDetails(snipp.id).subscribe((r: RecordDetailsModel) => this.record = r);
+    this.record.filesNames.forEach(element => {
+      console.log(element);
+    });
+    console.log(this.record.creator);
     /*
      this.recordService.getRecord(snipp.id).subscribe((rM: RecordModel) => this.recordM = rM);
      this.filesList = '';
