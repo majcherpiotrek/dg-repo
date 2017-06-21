@@ -1,4 +1,4 @@
-import {Component, OnInit, Output, EventEmitter} from '@angular/core';
+import { Component, OnInit, Output, EventEmitter, Input } from '@angular/core';
 import {RecordModel} from '../../shared/record.model';
 import {CitationType} from '../../shared/citation-type';
 import {RecordService} from '../../services/record.service';
@@ -14,10 +14,12 @@ import {FileHeaderModel} from "../../shared/file-header.model";
 })
 export class FormComponent implements OnInit {
 
+  @Input()
   record: RecordModel;
   hasRecordInitialized = false;
-  private promptRecordHeader = '1. Set new record\'s details and add files!';
+  // private promptRecordHeader = '1. Set new record\'s details and add files!';
   private promptCitationEdit = '2. Edit your files\' metadata!';
+  showDownloadLink = false;
 
   @Output() uploadFinished = new EventEmitter<RecordModel | JSON>();
 
@@ -36,6 +38,7 @@ export class FormComponent implements OnInit {
           console.log(response);
           this.uploadFinished.emit(<RecordModel> response.json());
           alert("Succesfull upload!");
+          this.showDownloadLink = !this.showDownloadLink;
         },
         (error) => {
           console.log(error);
@@ -67,9 +70,15 @@ export class FormComponent implements OnInit {
     return this.record.recordHeader.name !== '';
   }
 
-  getPromptText() {
+  /*getPromptText() {
     return this.hasRecordInitialized ? this.promptCitationEdit : this.promptRecordHeader;
   }
+  */
+  /*getZip(id: string){
+    // this.recordService.getZip(id).subscribe((u: string) => this.url = u);
+    window.open(this.recordService.getZip(id));
+  }
+  */
 }
 
 

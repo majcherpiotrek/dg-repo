@@ -2,29 +2,28 @@
 <div class="row">
   <!--Form-->
   <form *ngIf=!(ifRecordInitialized())>
-      <div id="form" class="col-sm-8 form-group">
-        <h1>{{ getPromptText() }}</h1>
-        <!--Record header fields-->
-        <label for="record-name-input" class="control-label">Record name</label>
-        <input id="record-name-input" type="text" class="form-control" [(ngModel)]="record.recordHeader.name" placeholder="Name the record" name="name">
-        <label for="about-input" class="control-label">About the record</label>
-        <textarea 
-          id="about-input" 
-          type="text" 
-          class="form-control" 
-          [(ngModel)]="record.recordHeader.about" 
-          placeholder="Describe the record" 
-          name="about"
-          rows="5"></textarea>
-        <label for="author-input" class="control-label">Author</label>
-        <input id="author-input" type="text" class="form-control" required [(ngModel)]="record.recordHeader.author" placeholder="Name the author" name="author">
-        <label for="creator-input" class="control-label">Creator</label>
+    <div id="form" class="col-sm-8 form-group">
+      <!--<h1>{{ getPromptText() }}</h1>-->
+      <!--Record header fields-->
+      <label for="record-name-input" class="control-label">Record name</label>
+      <!-- jak ustawić wartość początkową w inpucie (w input record-name-input - "record.id") 
+           pobieranie z input tutaj i w file-edit.html dziala, ale jak cos do niego wstawic... #merq 2 -->
+      <input id="record-name-input" type="text" class="form-control" [(ngModel)]="record.recordHeader.name" placeholder="Name the record"
+        name="name">
+      <label for="about-input" class="control-label">About the record</label>
+      <textarea id="about-input" type="text" class="form-control" [(ngModel)]="record.recordHeader.about" placeholder="Describe the record"
+        name="about" rows="5"></textarea>
+      <label for="author-input" class="control-label">Author</label>
+      <input id="author-input" type="text" class="form-control" required [(ngModel)]="record.recordHeader.author" placeholder="Name the author"
+        name="author">
+      <label for="creator-input" class="control-label">Creator</label>
       <div id="creator-input" class="row">
         <div class="col-sm-4">
           <input type="text" class="form-control" [(ngModel)]="record.recordHeader.creator.givenName" placeholder="name" name="recordName">
         </div>
         <div class="col-sm-4">
-          <input type="text" class="form-control" [(ngModel)]="record.recordHeader.creator.additionalName" placeholder="additional names" name="recordName">
+          <input type="text" class="form-control" [(ngModel)]="record.recordHeader.creator.additionalName" placeholder="additional names"
+            name="recordName">
         </div>
         <div class="col-sm-4">
           <input type="text" class="form-control" [(ngModel)]="record.recordHeader.creator.familyName" placeholder="surname" name="recordName">
@@ -34,8 +33,9 @@
       <!--end record header fields-->
 
       <!--Files input-->
-        <label for="files-input" class="control-label">Files</label>
-        <input id="files-input" type="file" class="form-control" style="margin: 5px" multiple (change)="fileChange($event)" placeholder="File to upload" name="file"/>
+      <label for="files-input" class="control-label">Files</label>
+      <input id="files-input" type="file" class="form-control" style="margin: 5px" multiple (change)="fileChange($event)" placeholder="File to upload"
+        name="file" />
       <div>
         <button [disabled]="!(hasRecordName())" (click)="initNewRecord()" type="submit" class="btn btn-block btn-success" style="margin: 5px">Create record</button>
       </div>
@@ -43,18 +43,14 @@
   </form>
 
   <div id="snippet" *ngIf="ifRecordInitialized()" class="col-sm-8">
-    <h1>{{ getPromptText() }}</h1>
-      <app-record-snippet
-        [record]="record"></app-record-snippet>
-        <div class="col-sm-13">
-          <button id="uploadButton" *ngIf="ifRecordInitialized()" (click)="newRecord()" type="submit" class="btn btn-block btn-success" style="margin: 5px">
+    <!--<h1>{{ getPromptText() }}</h1>-->
+    <h1>2. Edit your files\' metadata!</h1>
+    <app-record-snippet [record]="record"></app-record-snippet>
+    <div class="col-sm-13">
+      <button id="uploadButton" *ngIf="ifRecordInitialized()" (click)="newRecord()" type="submit" class="btn btn-block btn-success"
+        style="margin: 5px">
            Upload record
           </button>
-        </div>
+    </div>
   </div>
 </div>
-<div class="col-sm-2"></div>
-
-
-
-
