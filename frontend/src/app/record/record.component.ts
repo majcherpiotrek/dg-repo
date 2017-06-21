@@ -1,6 +1,8 @@
 import {Component, Input, OnInit} from '@angular/core';
 import {RecordDetailsModel} from '../shared/record-details.model';
 import {RecordService} from '../services/record.service';
+// import 'rxjs/add/observable/of';
+// import {Observable} from 'rxjs/Observable';
 
 @Component({
   selector: 'app-record',
@@ -11,6 +13,9 @@ export class RecordComponent implements OnInit {
 
   @Input()
   record: RecordDetailsModel;
+  filesList: Array<string>;
+  showFilesListOn: boolean = false;
+  editRecordOn: boolean = false;
 
   constructor(private recordService: RecordService) {
   }
@@ -25,6 +30,17 @@ export class RecordComponent implements OnInit {
     });
   }
 
-  editRecord(){}
+  editRecord(){
+    this.editRecordOn = !this.editRecordOn;
+  }
 
+  getZip(id: string){
+    // this.recordService.getZip(id).subscribe((u: string) => this.url = u);
+    window.open(this.recordService.getZip(id));
+  }
+
+  showFilesList(){
+    this.filesList = this.record.filesNames;
+    this.showFilesListOn = !this.showFilesListOn;
+  }
 }

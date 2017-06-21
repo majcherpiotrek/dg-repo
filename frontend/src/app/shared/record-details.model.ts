@@ -1,26 +1,39 @@
 
 export class RecordDetailsModel {
-    public id: string;
-    public name: string;
-    public about: string;
-    public author: string;
-    //public creator: SchemaOrgPerson;
-    //public dateCreated: LocalDateTime;
-    //public citations: Array<CitationMetadata>;
-    //public filesNames: Array<String>;
+  public id: string;
+  public name: string;
+  public about: string;
+  public author: string;
+  //public creator: SchemaOrgPerson;
+  //public dateCreated: LocalDateTime;
+  //public citations: Array<CitationMetadata>;
+  public filesNames: Array<string>;
 
-    public constructor() {
-      this.id = '';
-      this.name = '';
-      this.about = '';
-      this.author = '';
-    }
+  public constructor() {
+    this.id = '';
+    this.name = '';
+    this.about = '';
+    this.author = '';
+    this.filesNames = [''];
+  }
 
-  public toString = () : string => {
+  public toString = (): string => {
     return '{"id":"' + this.id + '", '
-        + '"name":"' + this.name + '", '
-        + '"about":"' + this.about + '", '
-        + '"author":"' + this.author + '"}';
+      + '"name":"' + this.name + '", '
+      + '"about":"' + this.about + '", '
+      + '"author":"' + this.author + '"}';
+  }
+  public getFilesNames(): Array<string> {
+    /*var toReturn: Array<string>;
+    
+    this.filesNames.forEach(element => {
+      
+    });
+    toReturn = ;
+
+    return toReturn;
+    */
+    return this.filesNames;
   }
 }
 
