@@ -66,16 +66,13 @@ export class RecordService {
 
   getZip(id: string) {
     const url = `${this.backUrl}${this.downloadZip}${id}`;
-<<<<<<< HEAD
     console.log('GET from ' + url);
-    return this.http.get(url).map((res: Response) => <string>res.json());
+    return url;
   }
 
   getDownloadZipLink(id: string) {
     const url = `${this.backUrl}${this.downloadZip}${id}`;
-=======
     console.log('download link: ' + url);
->>>>>>> master
     return url;
   }
 

@@ -12,15 +12,17 @@ export class UploadPageComponent implements OnInit {
   private showForm = true;
   private responseJSON;
   private out: RecordModel;
-  private recordService: RecordService;
-  downloadLink = '';
+  private downloadLink = '';
+
+  constructor(private recordService: RecordService) {
+  }
 
   onUploadFinished(event: JSON) {
     this.responseJSON = event;
     console.log(<RecordModel> this.responseJSON);
     this.out = <RecordModel> this.responseJSON;
     this.showForm = false;
-    // this.downloadLink = this.recordService.getZip(this.id);  #merq 1 - need to get id of current record
+    this.downloadLink = this.recordService.getZip(this.responseJSON.id);
   }
 
   ngOnInit() {
