@@ -11,6 +11,7 @@ export class RecordComponent implements OnInit {
 
   @Input()
   record: RecordDetailsModel;
+  url: string;
 
   constructor(private recordService: RecordService) {
   }
@@ -27,4 +28,7 @@ export class RecordComponent implements OnInit {
 
   editRecord(){}
 
+  getZip(id: string) {
+    window.open(this.recordService.getZip(id));
+  }
 }

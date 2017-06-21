@@ -15,14 +15,12 @@ public class ReceivedRecordHeader {
     private ReviewStatus reviewStatus;
     private SchemaOrgPerson creator;
 
-    public ReceivedRecordHeader(String name, String about, String author, String description, SchemaOrgPerson creator, String reviewedBy, ReviewStatus reviewStatus) {
+    public ReceivedRecordHeader(String name, String about, String author, String description, SchemaOrgPerson creator) {
         this.name = name;
         this.about = about;
         this.author = author;
         this.description = description;
         this.creator = creator;
-        this.reviewedBy = reviewedBy;
-        this.reviewStatus = reviewStatus;
     }
 
     @Override

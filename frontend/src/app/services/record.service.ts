@@ -68,8 +68,6 @@ export class RecordService {
   getZip(id: string) {
     const url = `${this.backUrl}${this.downloadZip}${id}`;
     console.log('download link: ' + url);
-    //console.log('GET from ' + url);
-    //return this.http.get(url).map((res: Response) => <string>res.json());
     return url;
   }
 
