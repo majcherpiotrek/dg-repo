@@ -1,11 +1,10 @@
 <div class="container-fluid">
-  <app-form
-    *ngIf="showForm"
-    (uploadFinished)="onUploadFinished($event)"></app-form>
+  <h1>1. Set new record's details and add files!</h1>
+  <app-form *ngIf="showForm" (uploadFinished)="onUploadFinished($event)"></app-form>
   <div *ngIf="!showForm">
     <h1>Response after upload:</h1>
     <app-record [record]="out"></app-record>
+    <!-- <h4>Link to dowload record: {{ downloadLink }}</h4>   #merq 1 -->
     <button type="button" class="col-sm-8 btn btn-success" (click)="showForm = !showForm">Add another record!</button>
   </div>
 </div>
-
