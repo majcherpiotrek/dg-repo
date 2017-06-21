@@ -11,6 +11,8 @@ public class ReceivedRecordHeader {
     private String about;
     private String author;
     private String description;
+    private String reviewedBy;
+    private ReviewStatus reviewStatus;
     private SchemaOrgPerson creator;
 
     public ReceivedRecordHeader(String name, String about, String author, String description, SchemaOrgPerson creator) {
@@ -74,5 +76,21 @@ public class ReceivedRecordHeader {
         if (author != null ? !author.equals(that.author) : that.author != null) return false;
         if (description != null ? !description.equals(that.description) : that.description != null) return false;
         return creator != null ? creator.equals(that.creator) : that.creator == null;
+    }
+
+    public String getReviewedBy() {
+        return reviewedBy;
+    }
+
+    public void setReviewedBy(String reviewedBy) {
+        this.reviewedBy = reviewedBy;
+    }
+
+    public ReviewStatus getReviewStatus() {
+        return reviewStatus;
+    }
+
+    public void setReviewStatus(ReviewStatus reviewStatus) {
+        this.reviewStatus = reviewStatus;
     }
 }

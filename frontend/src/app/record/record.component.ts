@@ -16,6 +16,7 @@ export class RecordComponent implements OnInit {
   filesList: Array<string>;
   showFilesListOn: boolean = false;
   editRecordOn: boolean = false;
+  url: string;
 
   constructor(private recordService: RecordService) {
   }

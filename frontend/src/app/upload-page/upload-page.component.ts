@@ -20,7 +20,6 @@ export class UploadPageComponent implements OnInit {
     console.log(<RecordModel> this.responseJSON);
     this.out = <RecordModel> this.responseJSON;
     this.showForm = false;
-    console.log('id: ' + this.responseJSON.id);
     // this.downloadLink = this.recordService.getZip(this.id);  #merq 1 - need to get id of current record
   }
 

@@ -28,6 +28,8 @@ public class SchemaOrgHeader {
     private String about;
     @TextIndexed
     private String author;
+    private String reviewedBy;
+    private ReviewStatus reviewStatus;
     private SchemaOrgPerson creator = null;
     private LocalDateTime dateCreated;
     private List<CitationMetadata> citations;
@@ -107,5 +109,21 @@ public class SchemaOrgHeader {
             e.printStackTrace();
         }
         return result;
+    }
+
+    public String getReviewedBy() {
+        return reviewedBy;
+    }
+
+    public void setReviewedBy(String reviewedBy) {
+        this.reviewedBy = reviewedBy;
+    }
+
+    public ReviewStatus getReviewStatus() {
+        return reviewStatus;
+    }
+
+    public void setReviewStatus(ReviewStatus reviewStatus) {
+        this.reviewStatus = reviewStatus;
     }
 }

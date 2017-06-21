@@ -23,7 +23,6 @@ export class PresentationPageComponent implements OnInit {
   protected showResultsLabel = false;
   protected showDetails = false;
   // protected zip: File;
-  protected url: string;
   protected filesList: string;
 
   constructor(protected snippetService: SnippetService, protected recordService: RecordService) {
@@ -70,6 +69,6 @@ export class PresentationPageComponent implements OnInit {
   }
 
   getZip(id: string){
-    this.recordService.getZip(id).subscribe((u: string) => this.url = u);
+    window.open(this.recordService.getZip(id));
   }
 }
