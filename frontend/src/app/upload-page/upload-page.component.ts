@@ -13,14 +13,14 @@ export class UploadPageComponent implements OnInit {
   private responseJSON;
   private out: RecordModel;
   private recordService: RecordService;
-  downloadLink: string;
-  // id: string;  #merq 1
+  downloadLink = '';
 
   onUploadFinished(event: JSON) {
     this.responseJSON = event;
     console.log(<RecordModel> this.responseJSON);
     this.out = <RecordModel> this.responseJSON;
     this.showForm = false;
+    console.log('id: ' + this.responseJSON.id);
     // this.downloadLink = this.recordService.getZip(this.id);  #merq 1 - need to get id of current record
   }
 
