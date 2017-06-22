@@ -1,10 +1,12 @@
 package com.dgteam.dgbackend.web.rest;
 
+import com.dgteam.dgbackend.domain.CitationMetadata;
 import com.dgteam.dgbackend.domain.SchemaOrgHeader;
 import com.dgteam.dgbackend.dto.RecordDTO;
 import com.dgteam.dgbackend.repository.SchemaOrgHeaderRepository;
 import com.dgteam.dgbackend.service.ZipService;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.mongodb.BasicDBObject;
 import com.mongodb.gridfs.GridFSDBFile;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.mongodb.core.query.Criteria;
@@ -16,6 +18,7 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.util.Iterator;
 import java.util.List;
 
 /**
@@ -92,6 +95,35 @@ public class RecordController {
         return new ResponseEntity<>(new RecordDTO(header, files), HttpStatus.OK);
     }
 
+    @CrossOrigin(origins = "http://localhost:4200")
+    @RequestMapping(value = "/delete-file", method = RequestMethod.POST)
+    public ResponseEntity<RecordDTO> deleteFileFromRecord(@RequestParam("id") String recordId,
+                                                          @RequestParam("filename") String fileToDelete){
+        SchemaOrgHeader header = schemaOrgHeaderRepository.findById(recordId);
+        Query findFilesToDeleteQuery = new Query(Criteria.where("metadata.recordId").is(recordId)
+                .and("metadata.fileName").is(fileToDelete));
+        List<GridFSDBFile> files = gridFsTemplate.find(
+                findFilesToDeleteQuery
+        );
+        if (header == null || files == null || files.isEmpty()) {
+            return new ResponseEntity<>(new RecordDTO(), HttpStatus.CONFLICT);
+        }
+        gridFsTemplate.delete(
+                findFilesToDeleteQuery
+        );
+
+        for(Iterator it = header.getCitations().iterator(); it.hasNext();) {
+            BasicDBObject meta = (BasicDBObject) it.next();
+            if (meta.get("fileName").equals(fileToDelete)) {
+                it.remove();
+            }
+        }
+
+        schemaOrgHeaderRepository.save(header);
+        files = gridFsTemplate.find(new Query(Criteria.where("metadata.recordId").is(recordId)));
+
+        return new ResponseEntity<>(new RecordDTO(header, files), HttpStatus.OK);
+    }
     private void prepareResponse(HttpServletResponse response, String recordName) {
         response.addHeader("Content-Disposition", "attachment; filename=\"" + recordName + "\"");
         response.setStatus(HttpServletResponse.SC_OK);

@@ -27,7 +27,19 @@ export class RecordComponent implements OnInit {
     });
   }
 
-  saveChanges(){
+  deleteFile(fileName: string) {
+    this.recordService.deleteFileFromRecord(this.record.id, fileName).subscribe(
+      (response) => {
+        this.record = <RecordDetailsModel> response.json();
+        alert('File ' + fileName + ' deleted!');
+      },
+      (error) => {
+        alert('Couldn\'t delete file ' + fileName + '!');
+      }
+    );
+  }
+
+  saveChanges() {
     this.recordService.editRecord(this.record.id, this.record).subscribe(
       (response) => {
         this.record = <RecordDetailsModel> response.json();

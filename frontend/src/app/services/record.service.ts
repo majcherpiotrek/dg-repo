@@ -15,6 +15,7 @@ export class RecordService {
   private uploadUrl = 'api/upload';
   private downloadZip = 'api/records/zip?record-id=';
   private editRecordUrl = 'api/records/edit';
+  private deleteFileUrl = 'api/records/delete-file';
 
   constructor(private http: Http) {
   }
@@ -83,6 +84,16 @@ export class RecordService {
     console.log(JSON.stringify(newRecordDetails));
     const formData = new FormData();
     formData.append('dto', JSON.stringify(newRecordDetails));
+    const headers = new Headers();
+    const options = new RequestOptions({headers: headers});
+    return this.http.post(url, formData, options);
+  }
+
+  deleteFileFromRecord(id: string, fileName: string) {
+    const url = `${this.backUrl}${this.deleteFileUrl}`;
+    const formData = new FormData();
+    formData.append('id', id);
+    formData.append('filename', fileName);
     const headers = new Headers();
     const options = new RequestOptions({headers: headers});
     return this.http.post(url, formData, options);
