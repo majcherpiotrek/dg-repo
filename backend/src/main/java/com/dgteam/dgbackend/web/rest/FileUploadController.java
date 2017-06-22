@@ -108,8 +108,8 @@ public class FileUploadController {
 
     @CrossOrigin(origins = "http://localhost:4200")
     @RequestMapping(value = "/add-file", method = RequestMethod.POST)
-    public ResponseEntity<RecordDTO> addFileToRecord(@RequestParam("id") String recordId,
-                                                     @RequestParam("files") List<MultipartFile> filesList,
+    public ResponseEntity<RecordDTO> addFileToRecord(@RequestParam("recordId") String recordId,
+                                                     @RequestParam("filesList") List<MultipartFile> filesList,
                                                      @RequestParam("fileHeaders") String fileHeaders){
         /**
          * Parse received metadata from JSON to received metadata objects

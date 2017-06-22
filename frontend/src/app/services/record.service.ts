@@ -6,6 +6,7 @@ import 'rxjs/Rx';
 
 import {RecordModel} from '../shared/record.model';
 import {RecordDetailsModel} from '../shared/record-details.model';
+import {FileHeaderModel} from '../shared/file-header.model';
 
 @Injectable()
 export class RecordService {
@@ -17,7 +18,7 @@ export class RecordService {
   private editRecordUrl = 'api/records/edit';
   private deleteFileUrl = 'api/records/delete-file';
   private addFileUrl = 'api/records/add-file';
-
+  
   constructor(private http: Http) {
   }
 
@@ -100,23 +101,22 @@ export class RecordService {
     return this.http.post(url, formData, options);
   }
 
-  addFiles(id: string, files: File[]){
+  addFiles(id: string, files: File[], fileHeaders: FileHeaderModel[]){
     const formData = new FormData();
-    // let fileHeadersString = '[';
+    let fileHeadersString = '[';
     for (let i = 0; i < files.length; i++) {
       formData.append('filesList', files[i], files[i].name);
-      // fileHeadersString += files[i].toString();
+      fileHeadersString += fileHeaders[i].toString();
       if (i < files.length - 1) {
-        // fileHeadersString += ',';
+        fileHeadersString += ',';
       }
     }
-    // fileHeadersString += ']';
-    // formData.append('fileHeaders', fileHeadersString);
-    // const headers = new Headers();
-    // const options = new RequestOptions({headers: headers});
-    // console.log('Sending POST with : ' + fileHeadersString.toString());
-    // return this.http.post(this.backUrl + this.addFileUrl, formData, options);
-    return this.http.post(this.backUrl + this.addFileUrl, formData, id);
-    
+    fileHeadersString += ']';
+    formData.append('recordId', id);
+    formData.append('fileHeaders', fileHeadersString);
+    const headers = new Headers();
+    const options = new RequestOptions({headers: headers});
+    console.log('Sending POST with : ' + fileHeadersString);
+    return this.http.post(this.backUrl + this.addFileUrl, formData, options);
   }
 }
