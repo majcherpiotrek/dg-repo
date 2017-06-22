@@ -110,9 +110,9 @@
           </div>
         </div>
       </div>
-      <div class="pull-right">
-        <button id="addFile" (click)="addNewAttachmentOn=!addNewAttachmentOn" type="button" class="btn btn-primary">Add new attachment</button>
-      </div>
+ 
+      <button id="addFile" (click)="addNewAttachmentOn=!addNewAttachmentOn" type="button" class="btn btn-primary btn-block">Add new attachments</button>
+  
       <div *ngIf="addNewAttachmentOn">
         <label for="files-input" class="control-label">Select new file(s) to add:</label>
         <input id="files-input" type="file" class="form-control" style="margin: 5px" multiple (change)="fileChange($event)" placeholder="File(s) to upload"
@@ -120,7 +120,7 @@
         <br>
         <button id="uploadButton" (click)="addFiles()" type="submit" class="btn btn-block btn-success"
           style="margin: 5px">
-           Upload file(s)
+           Add files!
           </button>
       </div>
       <div class="row">

@@ -129,9 +129,10 @@ public class FileUploadController {
         }
 
         try {
-            for ( CitationMetadata meta : receivedCitationList) {
-                meta.addData("recordId", recordId);
-                header.addCitation(meta);
+            for ( int i = 0; i < receivedCitationList.size(); i++) {
+                receivedCitationList.get(i).addData("recordId", recordId);
+                receivedCitationList.get(i).addData("fileName", filesList.get(i).getOriginalFilename());
+                header.addCitation(receivedCitationList.get(i));
             }
         } catch (Exception ex) {
             ex.printStackTrace();

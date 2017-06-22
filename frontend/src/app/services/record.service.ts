@@ -17,8 +17,8 @@ export class RecordService {
   private downloadZip = 'api/records/zip?record-id=';
   private editRecordUrl = 'api/records/edit';
   private deleteFileUrl = 'api/records/delete-file';
-  private addFileUrl = 'api/records/add-file';
-  
+  private addFileUrl = 'api/upload/add-file';
+
   constructor(private http: Http) {
   }
 
