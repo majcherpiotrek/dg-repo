@@ -30,8 +30,6 @@ import java.util.List;
 @RequestMapping("/api/upload")
 public class FileUploadController {
 
-    private final String UPLOAD_FAILED_MESSAGE = "Uploading new record failed:";
-
     @Autowired
     private SchemaOrgHeaderRepository schemaOrgHeaderRepository;
 
@@ -111,8 +109,49 @@ public class FileUploadController {
     @CrossOrigin(origins = "http://localhost:4200")
     @RequestMapping(value = "/add-file", method = RequestMethod.POST)
     public ResponseEntity<RecordDTO> addFileToRecord(@RequestParam("id") String recordId,
-                                                     @RequestParam("files") File[] filesToAdd){
+                                                     @RequestParam("files") List<MultipartFile> filesList,
+                                                     @RequestParam("fileHeaders") String fileHeaders){
+        /**
+         * Parse received metadata from JSON to received metadata objects
+         */
+        JsonToMetadataObjectsParser parser = new JsonToMetadataObjectsParser();
+        try {
+            parser.setCitationList(fileHeaders);
+        } catch (Exception ex) {
+            return new ResponseEntity<>(new RecordDTO(), HttpStatus.CONFLICT);
+        }
 
-        return null;
+        List<CitationMetadata> receivedCitationList = parser.getCitationList();
+
+        SchemaOrgHeader header = schemaOrgHeaderRepository.findById(recordId);
+        if (header == null) {
+            return new ResponseEntity<>(new RecordDTO(), HttpStatus.CONFLICT);
+        }
+
+        try {
+            for ( CitationMetadata meta : receivedCitationList) {
+                meta.addData("recordId", recordId);
+                header.addCitation(meta);
+            }
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        }
+
+        schemaOrgHeaderRepository.save(header);
+
+        try {
+            //For each file included in the record
+            for (int i=0; i<filesList.size(); i++){
+                /**
+                 * Save file to the MongoDB
+                 */
+                gridFsTemplate.store(filesList.get(i).getInputStream(), receivedCitationList.get(i));
+            }
+        }catch (IOException ioE){
+            return new ResponseEntity<>(new RecordDTO(), HttpStatus.CONFLICT);
+        }
+
+        List<GridFSDBFile> files = gridFsTemplate.find(new Query(Criteria.where("metadata.recordId").is(recordId)));
+        return new ResponseEntity<>(new RecordDTO(header, files), HttpStatus.OK);
     }
 }
