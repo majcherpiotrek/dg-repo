@@ -1,5 +1,5 @@
 import {Component, OnInit} from '@angular/core';
-import {RecordModel} from '../shared/record.model';
+import {RecordDetailsModel} from '../shared/record-details.model';
 import {RecordService} from '../services/record.service';
 
 @Component({
@@ -11,18 +11,19 @@ export class UploadPageComponent implements OnInit {
 
   private showForm = true;
   private responseJSON;
-  private out: RecordModel;
-  private downloadLink = '';
+  private out: RecordDetailsModel;
+  private downloadLink = 'url';
 
   constructor(private recordService: RecordService) {
   }
 
   onUploadFinished(event: JSON) {
     this.responseJSON = event;
-    console.log(<RecordModel> this.responseJSON);
-    this.out = <RecordModel> this.responseJSON;
+    console.log(<RecordDetailsModel> this.responseJSON);
+    this.out = <RecordDetailsModel> this.responseJSON;
     this.showForm = false;
     this.downloadLink = this.recordService.getZip(this.responseJSON.id);
+    console.log('download link:' + this.downloadLink);
   }
 
   ngOnInit() {

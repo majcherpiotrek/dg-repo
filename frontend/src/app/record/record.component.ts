@@ -12,7 +12,7 @@ import {RecordService} from '../services/record.service';
 export class RecordComponent implements OnInit {
 
   @Input() record: RecordDetailsModel;
-  @Input() url: string;
+  @Input() url = 'url';
 
   constructor(private recordService: RecordService) {
   }

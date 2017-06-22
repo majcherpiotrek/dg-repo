@@ -3,7 +3,7 @@
   <!--Form-->
   <form *ngIf=!(ifRecordInitialized())>
     <div id="form" class="col-sm-8 form-group">
-      <!--<h1>{{ getPromptText() }}</h1>-->
+      <h2>{{ getPromptText() }}</h2>
       <!--Record header fields-->
       <label for="record-name-input" class="control-label">Record name</label>
       <input id="record-name-input" type="text" class="form-control" [(ngModel)]="record.recordHeader.name" placeholder="Name the record"
@@ -41,8 +41,7 @@
   </form>
 
   <div id="snippet" *ngIf="ifRecordInitialized()" class="col-sm-8">
-    <!--<h1>{{ getPromptText() }}</h1>-->
-    <h1>2. Edit your files\' metadata!</h1>
+    <h2>{{ getPromptText() }}</h2>
     <app-record-snippet [record]="record"></app-record-snippet>
     <div class="col-sm-13">
       <button id="uploadButton" *ngIf="ifRecordInitialized()" (click)="newRecord()" type="submit" class="btn btn-block btn-success"

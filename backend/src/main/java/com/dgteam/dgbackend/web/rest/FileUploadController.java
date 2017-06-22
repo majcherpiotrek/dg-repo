@@ -4,9 +4,13 @@ import com.dgteam.dgbackend.domain.CitationMetadata;
 import com.dgteam.dgbackend.domain.ReceivedRecordHeader;
 import com.dgteam.dgbackend.domain.SchemaOrgHeader;
 import com.dgteam.dgbackend.domain.SchemaOrgHeaderFactory;
+import com.dgteam.dgbackend.dto.RecordDTO;
 import com.dgteam.dgbackend.repository.SchemaOrgHeaderRepository;
 import com.dgteam.dgbackend.web.util.JsonToMetadataObjectsParser;
+import com.mongodb.gridfs.GridFSDBFile;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.mongodb.core.query.Criteria;
+import org.springframework.data.mongodb.core.query.Query;
 import org.springframework.data.mongodb.gridfs.GridFsTemplate;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -36,9 +40,9 @@ public class FileUploadController {
 
     @CrossOrigin(origins = "http://localhost:4200")
     @RequestMapping(value = "", method = RequestMethod.POST)
-    public ResponseEntity<String> handleFileUpload(@RequestParam("filesList") List<MultipartFile> filesList,
-                                                   @RequestParam("recordHeader") String recordHeader,
-                                                   @RequestParam("fileHeaders") String fileHeaders){
+    public ResponseEntity<RecordDTO> handleFileUpload(@RequestParam("filesList") List<MultipartFile> filesList,
+                                                      @RequestParam("recordHeader") String recordHeader,
+                                                      @RequestParam("fileHeaders") String fileHeaders){
 
         /**
          * Parse received metadata from JSON to received metadata objects
@@ -48,7 +52,7 @@ public class FileUploadController {
             parser.setRecordHeader(recordHeader);
             parser.setCitationList(fileHeaders);
         } catch (Exception ex) {
-            return new ResponseEntity<String>(UPLOAD_FAILED_MESSAGE +" " + ex.toString(), HttpStatus.CONFLICT);
+            return new ResponseEntity<>(new RecordDTO(), HttpStatus.CONFLICT);
         }
 
 
@@ -63,7 +67,7 @@ public class FileUploadController {
             SchemaOrgHeaderFactory factory = new SchemaOrgHeaderFactory(receivedRecordHeader, receivedCitationList, filesList);
             schemaOrgHeader = factory.getSchemaOrgHeader();
         } catch (Exception e) {
-            return new ResponseEntity<String>(UPLOAD_FAILED_MESSAGE +" " + e.toString(), HttpStatus.CONFLICT);
+            return new ResponseEntity<>(new RecordDTO(), HttpStatus.CONFLICT);
         }
 
         /**
@@ -87,9 +91,10 @@ public class FileUploadController {
                 gridFsTemplate.store(filesList.get(i).getInputStream(), receivedCitationList.get(i));
             }
         }catch (IOException ioE){
-            return new ResponseEntity<String>(UPLOAD_FAILED_MESSAGE + ": " + ioE, HttpStatus.CONFLICT);
+            return new ResponseEntity<>(new RecordDTO(), HttpStatus.CONFLICT);
         }
-        return new ResponseEntity<String>(schemaOrgHeader.toString(), HttpStatus.OK);
+        List<GridFSDBFile> files = gridFsTemplate.find(new Query(Criteria.where("metadata.recordId").is(schemaOrgHeader.getId())));
+        return new ResponseEntity<>(new RecordDTO(schemaOrgHeader, files), HttpStatus.OK);
     }
 
     @CrossOrigin(origins = "http://localhost:4200")
