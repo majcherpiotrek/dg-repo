@@ -56,8 +56,16 @@ export class RecordSnippetComponent implements OnInit {
   onMetadataAdded(metadata: {file: File, header: FileHeaderModel}) {
     const index = this.findFileIndex(metadata.file);
     if (index !== -1) {
+      console.log(metadata.header.toString());
       this.record.fileHeaders[index] = metadata.header;
     }
     this.enableFileEdit(metadata.file);
+  }
+
+  getFileMetadata(file: File) {
+    const index = this.findFileIndex(file);
+    if (index !== -1) {
+      return this.record.fileHeaders[index];
+    }
   }
 }

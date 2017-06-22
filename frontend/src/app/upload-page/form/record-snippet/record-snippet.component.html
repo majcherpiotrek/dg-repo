@@ -28,6 +28,7 @@
                 <div *ngIf="isEditEnabled(file)" style="clear: both">
                   <app-file-edit 
                   [file] = "file"
+                  [metadata] = "getFileMetadata(file)"
                   (metadataAdded) = "onMetadataAdded($event)"></app-file-edit>
                 </div>
               </div>   

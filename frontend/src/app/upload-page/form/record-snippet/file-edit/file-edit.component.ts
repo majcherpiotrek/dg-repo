@@ -12,6 +12,7 @@ export class FileEditComponent implements OnInit {
   types: string[] = [];
   fileHeader: FileHeaderModel;
   @Input() file: File;
+  @Input() metadata: FileHeaderModel;
   // TODO change to input, doesnt make sense to emit an event here
   @Output() metadataAdded = new EventEmitter<{file: File, header: FileHeaderModel}>();
 
@@ -26,6 +27,7 @@ export class FileEditComponent implements OnInit {
  }
 
   ngOnInit() {
+    this.fileHeader = this.metadata;
   }
 
   onSaveMetadata() {
