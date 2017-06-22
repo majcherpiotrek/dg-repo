@@ -20,8 +20,6 @@ public class RecordDTO {
     private String about;
     private String author;
     private SchemaOrgPerson creator = null;
-    private LocalDateTime dateCreated;
-    private List<CitationMetadata> citations;
     private List<String> filesNames;
 
     public RecordDTO(SchemaOrgHeader header, List<GridFSDBFile> files) {
@@ -30,8 +28,6 @@ public class RecordDTO {
         this.about = header.getAbout();
         this.author = header.getAuthor();
         this.creator = header.getCreator();
-        this.dateCreated = header.getDateCreated();
-        this.citations = header.getCitations();
         this.filesNames = new ArrayList<>();
         for (GridFSDBFile file : files) {
             this.filesNames.add((String)file.getMetaData().get("fileName"));
@@ -56,14 +52,6 @@ public class RecordDTO {
 
     public SchemaOrgPerson getCreator() {
         return creator;
-    }
-
-    public LocalDateTime getDateCreated() {
-        return dateCreated;
-    }
-
-    public List<CitationMetadata> getCitations() {
-        return citations;
     }
 
     public List<String> getFilesNames() {

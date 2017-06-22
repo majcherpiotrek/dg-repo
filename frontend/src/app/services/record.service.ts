@@ -14,6 +14,7 @@ export class RecordService {
   private getSingleRecordUrl = 'api/records?record-id=';
   private uploadUrl = 'api/upload';
   private downloadZip = 'api/records/zip?record-id=';
+  private editRecordUrl = 'api/records/edit';
 
   constructor(private http: Http) {
   }
@@ -80,5 +81,15 @@ export class RecordService {
     const url = `${this.backUrl}${this.getSingleRecordUrl}${id}`;
     console.log('DELETE from ' + url);
     return this.http.delete(url).map((res: Response) => res);
+  }
+
+  editRecord(id: string, newRecordDetails: RecordDetailsModel) {
+    const url = `${this.backUrl}${this.editRecordUrl}`;
+    console.log('post to: ' + url);
+    console.log(JSON.stringify(newRecordDetails));
+    let data = {
+      "record-dto":JSON.stringify(newRecordDetails)
+    };
+    return this.http.post(url, data);
   }
 }

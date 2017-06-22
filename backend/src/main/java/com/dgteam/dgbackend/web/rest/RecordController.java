@@ -67,6 +67,20 @@ public class RecordController {
         return "Record " + recordId + " deleted";
     }
 
+    @CrossOrigin(origins = "http://localhost:4200")
+    @RequestMapping(method = RequestMethod.POST, value = "/edit")
+    public RecordDTO editRecord(@RequestParam("record-dto") RecordDTO recordDTO){
+        String recordId = recordDTO.getId();
+        SchemaOrgHeader header = schemaOrgHeaderRepository.findById(recordId);
+        List<GridFSDBFile> files = gridFsTemplate.find(new Query(Criteria.where("metadata.recordId").is(recordId)));
+        header.setName(recordDTO.getName());
+        header.setAbout(recordDTO.getAbout());
+        header.setAuthor(recordDTO.getAuthor());
+        header.setCreator(recordDTO.getCreator());
+        schemaOrgHeaderRepository.save(header);
+        return new RecordDTO(header, files);
+    }
+
     private void prepareResponse(HttpServletResponse response, String recordName) {
         response.addHeader("Content-Disposition", "attachment; filename=\"" + recordName + "\"");
         response.setStatus(HttpServletResponse.SC_OK);

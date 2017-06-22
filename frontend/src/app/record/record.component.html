@@ -69,18 +69,31 @@
     </div>
   </div>
 </div>-->
-
-
 <div id="snippet-container" class="container-fluid">
   <div class="row">
     <div class="col-xs-12" style="padding: 20px">
-      <h4>ID: {{record.id}}</h4>
-      <h4>Name: {{record.name}}</h4>
-      <h4>About: </h4>
-      <p>{{record.about }}</p>
-      <h4>Uploaded by:</h4> {{ record.author }} <br>
-      <h4>Created by:</h4> {{ record.creator.givenName }} 
-      {{ record.creator.additionalName }} {{ record.creator.familyName }}
+      <label for="ID" class="control-label">ID</label>
+      <div #ID>
+        <h4>{{record.id}}</h4>
+      </div>
+        <label for="name" class="control-label">Name</label>
+        <input #name type="text" class="form-control" value="record.name" [(ngModel)]="record.name">
+        <label for="about" class="control-label">About</label>
+        <textarea #about type="text" class="form-control" value="record.about" rows="5" [(ngModel)]="record.about">{{record.about}}</textarea>
+        <label for="uploadedby" class="control-label">Uploaded by</label>
+        <input #uploadedby type="text" class="form-control" value="record.author" [(ngModel)]="record.author">
+        <label for="creator" class="control-label">Created by</label>
+        <div #creator class="row">
+          <div class="col-sm-4">
+            <input #givenname type="text" class="form-control" value="{{record.creator.givenName}}" [(ngModel)]="record.creator.givenName">
+          </div>
+          <div class="col-sm-4">
+            <input #additionalname type="text" class="form-control" value="{{record.creator.additionalName}}" [(ngModel)]="record.creator.additionalName">
+          </div>
+          <div class="col-sm-4">
+            <input #familyname type="text" class="form-control" value="{{record.creator.familyName}}" [(ngModel)]="record.creator.familyName">
+          </div>
+        </div>
       <h4>Files:</h4>
       <div *ngIf="record.filesNames.length > 0">
         <div id="element" class="list-group-item clearfix" *ngFor="let file of record.filesNames">
@@ -90,22 +103,19 @@
                 <h4 class="pull-left">{{file}}</h4>
                 <div class="pull-right">
                     <button type="button" class="btn btn-primary">Edit</button>
-                    <button type="button" class="btn btn-success">Details</button>
                     <button type="button" class="btn btn-danger">Delete</button>
                 </div>
               </div>
-              <!--<div id="fileViewContent" class="list-group-item-text">
-                <hr>
-                <div *ngIf="isEditEnabled(file)" style="clear: both">
-                  <app-file-edit 
-                  [file] = "file"
-                  (metadataAdded) = "onMetadataAdded($event)"></app-file-edit>
-                </div>
-              </div>   -->
             </div>
           </div>
         </div>
       </div>
+      <button class="col-sm-6 btn btn-primary" id="edit" (click)="saveChanges()">
+        <span class="glyphicon glyphicon-pencil"></span> Save changes
+      </button>
+      <button class="col-sm-6 btn btn-danger" id="delete" (click)="deleteRecord()">
+        <span class="glyphicon glyphicon-trash"></span> Delete record
+      </button>  
     </div>
   </div>
 </div>
