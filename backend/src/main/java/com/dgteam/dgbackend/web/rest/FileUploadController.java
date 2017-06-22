@@ -107,4 +107,12 @@ public class FileUploadController {
 
         return new ResponseEntity<String>(header.toString(), HttpStatus.OK);
     }
+
+    @CrossOrigin(origins = "http://localhost:4200")
+    @RequestMapping(value = "/add-file", method = RequestMethod.POST)
+    public ResponseEntity<RecordDTO> addFileToRecord(@RequestParam("id") String recordId,
+                                                     @RequestParam("files") File[] filesToAdd){
+
+        return null;
+    }
 }

@@ -17,6 +17,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletResponse;
+import java.io.File;
 import java.io.IOException;
 import java.util.Iterator;
 import java.util.List;
@@ -124,6 +125,7 @@ public class RecordController {
 
         return new ResponseEntity<>(new RecordDTO(header, files), HttpStatus.OK);
     }
+
     private void prepareResponse(HttpServletResponse response, String recordName) {
         response.addHeader("Content-Disposition", "attachment; filename=\"" + recordName + "\"");
         response.setStatus(HttpServletResponse.SC_OK);
