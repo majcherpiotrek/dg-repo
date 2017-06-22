@@ -9,7 +9,7 @@ import { CitationType } from '../../../../shared/citation-type';
 })
 export class FileEditComponent implements OnInit {
 
-  types = CitationType;
+  types: string[] = [];
   fileHeader: FileHeaderModel;
   @Input() file: File;
   // TODO change to input, doesnt make sense to emit an event here
@@ -17,13 +17,15 @@ export class FileEditComponent implements OnInit {
 
   constructor() {
     this.fileHeader = new FileHeaderModel();
-  }
+    for(let element in CitationType) {
+      if (typeof CitationType[element] === 'number') {
+          this.types.push(element);
+      }
+    }
+    console.log(this.types);
+ }
 
   ngOnInit() {
-  }
-
-  onSelectionChange(value: CitationType) {
-    this.fileHeader.type = value.toString();
   }
 
   onSaveMetadata() {

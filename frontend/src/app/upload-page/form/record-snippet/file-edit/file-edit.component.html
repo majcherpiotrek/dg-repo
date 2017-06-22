@@ -1,19 +1,10 @@
 <div class="container-fluid">
-  <form>
     <div class="row">
       <div class="col-12-sm form-group">
         <label for="typeSelect" class="control-label">Select the citation type</label>
-        <select id="typeSelect" class="form-control" (change) = "onSelectionChange($event.target.value)">
-          <option value="CreativeWork">Creative work</option>
-          <option value="Article">Article</option>
-          <option value="Book">Book</option>
-          <option value="AudioObject">Audio Object</option>
-          <option value="ImageObject">Image Object</option>
-          <option value="MusicRecording">Music Recording</option>
-          <option value="SoftwareSourceCode">Software Source Code</option>
-          <option Value="VideoObject">Video Object</option>
+        <select standalone id="typeSelect" class="form-control" [(ngModel)]="fileHeader.type">
+          <option *ngFor="let t of types" [ngValue]="t">{{t}}</option>
         </select>
-        
         <div class="form-element">
           <label for="citation-name-input" class="control-label">Citation name</label>
           <input id="citation-name-input" type="text" class="form-control" [(ngModel)]="fileHeader.name" placeholder="name this citation..." name="citationName">
@@ -87,8 +78,7 @@
               </div> 
             </div>
         </div>
-        <button type="submit" class="btn btn-block btn-success" (click) = "onSaveMetadata()">Save</button>
+        <button class="btn btn-block btn-success" (click) = "onSaveMetadata()">Save</button>
       </div>
     </div>
-  </form>
 </div>
