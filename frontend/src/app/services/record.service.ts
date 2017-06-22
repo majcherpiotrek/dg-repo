@@ -71,12 +71,6 @@ export class RecordService {
     return url;
   }
 
-  getDownloadZipLink(id: string) {
-    const url = `${this.backUrl}${this.downloadZip}${id}`;
-    console.log('download link: ' + url);
-    return url;
-  }
-
   deleteRecord(id: string) {
     const url = `${this.backUrl}${this.getSingleRecordUrl}${id}`;
     console.log('DELETE from ' + url);

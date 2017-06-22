@@ -75,4 +75,9 @@ export class PresentationPageComponent implements OnInit {
   getZip(id: string){
     window.open(this.recordService.getZip(id));
   }
+
+  getZipUrl(id: string) {
+    console.log(id);
+    return this.recordService.getZip(id);
+  }
 }

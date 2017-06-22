@@ -50,11 +50,12 @@ public class RecordController {
     public void getZip(@RequestParam("record-id") String recordId, HttpServletResponse response) throws IOException {
         List<GridFSDBFile> files = gridFsTemplate.find(new Query(Criteria.where("metadata.recordId").is(recordId)));
 
-        String recordName = extractRecordName(files);
+        SchemaOrgHeader header = schemaOrgHeaderRepository.findById(recordId);
+        String recordName = header.getName() + ".zip";
         prepareResponse(response, recordName);
 
         try {
-            zipService.makeAndForwardZip(files, response);
+            zipService.makeAndForwardZip(header, files, response);
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -85,10 +86,5 @@ public class RecordController {
         response.addHeader("Content-Disposition", "attachment; filename=\"" + recordName + "\"");
         response.setStatus(HttpServletResponse.SC_OK);
     }
-
-    private String extractRecordName(List<GridFSDBFile> files) {
-        return files.get(0).getMetaData().get("recordName") + ".zip";
-    }
-
 }
 

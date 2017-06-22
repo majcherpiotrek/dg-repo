@@ -110,6 +110,18 @@
           </div>
         </div>
       </div>
+      <div class="row">
+              <div class="col-sm-3">
+                <label>Download URL: </label>
+              </div>
+              <div class="col-sm-6">
+                <input class="form-control" value={{url}}>
+              </div>
+              <div class="col-sm-3">
+                <button id="getZipButton" (click)="getZip(record.id)" type="sumbit" class="btn btn-success btn-block">Download .ZIP
+              </button>
+              </div>
+            </div>
       <button class="col-sm-6 btn btn-primary" id="edit" (click)="saveChanges()">
         <span class="glyphicon glyphicon-pencil"></span> Save changes
       </button>
