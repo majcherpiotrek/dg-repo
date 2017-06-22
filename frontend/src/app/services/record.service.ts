@@ -81,9 +81,10 @@ export class RecordService {
     const url = `${this.backUrl}${this.editRecordUrl}`;
     console.log('post to: ' + url);
     console.log(JSON.stringify(newRecordDetails));
-    let data = {
-      "record-dto":JSON.stringify(newRecordDetails)
-    };
-    return this.http.post(url, data);
+    const formData = new FormData();
+    formData.append('dto', JSON.stringify(newRecordDetails));
+    const headers = new Headers();
+    const options = new RequestOptions({headers: headers});
+    return this.http.post(url, formData, options);
   }
 }

@@ -4,11 +4,14 @@ import com.dgteam.dgbackend.domain.SchemaOrgHeader;
 import com.dgteam.dgbackend.dto.RecordDTO;
 import com.dgteam.dgbackend.repository.SchemaOrgHeaderRepository;
 import com.dgteam.dgbackend.service.ZipService;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.mongodb.gridfs.GridFSDBFile;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.mongodb.core.query.Criteria;
 import org.springframework.data.mongodb.core.query.Query;
 import org.springframework.data.mongodb.gridfs.GridFsTemplate;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletResponse;
@@ -69,8 +72,15 @@ public class RecordController {
     }
 
     @CrossOrigin(origins = "http://localhost:4200")
-    @RequestMapping(method = RequestMethod.POST, value = "/edit")
-    public RecordDTO editRecord(@RequestParam("record-dto") RecordDTO recordDTO){
+    @RequestMapping(value = "/edit", method = RequestMethod.POST)
+    public ResponseEntity<RecordDTO> editRecord(@RequestParam("dto") String recordDTOString){
+        RecordDTO recordDTO;
+        try {
+            recordDTO = new ObjectMapper().readValue(recordDTOString, RecordDTO.class);
+        } catch (IOException e) {
+            e.printStackTrace();
+            return new ResponseEntity<>(new RecordDTO(), HttpStatus.CONFLICT);
+        }
         String recordId = recordDTO.getId();
         SchemaOrgHeader header = schemaOrgHeaderRepository.findById(recordId);
         List<GridFSDBFile> files = gridFsTemplate.find(new Query(Criteria.where("metadata.recordId").is(recordId)));
@@ -79,7 +89,7 @@ public class RecordController {
         header.setAuthor(recordDTO.getAuthor());
         header.setCreator(recordDTO.getCreator());
         schemaOrgHeaderRepository.save(header);
-        return new RecordDTO(header, files);
+        return new ResponseEntity<>(new RecordDTO(header, files), HttpStatus.OK);
     }
 
     private void prepareResponse(HttpServletResponse response, String recordName) {

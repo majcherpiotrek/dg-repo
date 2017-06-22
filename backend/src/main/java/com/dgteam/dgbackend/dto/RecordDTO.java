@@ -22,6 +22,8 @@ public class RecordDTO {
     private SchemaOrgPerson creator = null;
     private List<String> filesNames;
 
+    public  RecordDTO() {
+    }
     public RecordDTO(SchemaOrgHeader header, List<GridFSDBFile> files) {
         this.id = header.getId();
         this.name = header.getName();
@@ -48,6 +50,30 @@ public class RecordDTO {
 
     public String getAuthor() {
         return author;
+    }
+
+    public void setId(String id) {
+        this.id = id;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public void setAbout(String about) {
+        this.about = about;
+    }
+
+    public void setAuthor(String author) {
+        this.author = author;
+    }
+
+    public void setCreator(SchemaOrgPerson creator) {
+        this.creator = creator;
+    }
+
+    public void setFilesNames(List<String> filesNames) {
+        this.filesNames = filesNames;
     }
 
     public SchemaOrgPerson getCreator() {

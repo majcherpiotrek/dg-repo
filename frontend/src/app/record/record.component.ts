@@ -28,7 +28,17 @@ export class RecordComponent implements OnInit {
   }
 
   saveChanges(){
-    this.recordService.editRecord(this.record.id, this.record);
+    this.recordService.editRecord(this.record.id, this.record).subscribe(
+      (response) => {
+        this.record = <RecordDetailsModel> response.json();
+        console.log(this.record.toString());
+        alert('Changes saved successfully!');
+      },
+      (error) => {
+          console.log(error);
+          alert('Failed to save changes!');
+        }
+    );
   }
 
   getZip(id: string){
