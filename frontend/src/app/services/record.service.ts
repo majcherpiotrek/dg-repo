@@ -16,6 +16,7 @@ export class RecordService {
   private downloadZip = 'api/records/zip?record-id=';
   private editRecordUrl = 'api/records/edit';
   private deleteFileUrl = 'api/records/delete-file';
+  private addFileUrl = 'api/records/add-file';
 
   constructor(private http: Http) {
   }
@@ -97,5 +98,25 @@ export class RecordService {
     const headers = new Headers();
     const options = new RequestOptions({headers: headers});
     return this.http.post(url, formData, options);
+  }
+
+  addFiles(id: string, files: File[]){
+    const formData = new FormData();
+    // let fileHeadersString = '[';
+    for (let i = 0; i < files.length; i++) {
+      formData.append('filesList', files[i], files[i].name);
+      // fileHeadersString += files[i].toString();
+      if (i < files.length - 1) {
+        // fileHeadersString += ',';
+      }
+    }
+    // fileHeadersString += ']';
+    // formData.append('fileHeaders', fileHeadersString);
+    // const headers = new Headers();
+    // const options = new RequestOptions({headers: headers});
+    // console.log('Sending POST with : ' + fileHeadersString.toString());
+    // return this.http.post(this.backUrl + this.addFileUrl, formData, options);
+    return this.http.post(this.backUrl + this.addFileUrl, formData, id);
+    
   }
 }

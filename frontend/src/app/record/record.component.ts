@@ -14,6 +14,8 @@ export class RecordComponent implements OnInit {
   @Input() record: RecordDetailsModel;
   @Input() url = 'url';
 
+  addNewAttachmentOn: boolean = false;
+
   constructor(private recordService: RecordService) {
   }
 
