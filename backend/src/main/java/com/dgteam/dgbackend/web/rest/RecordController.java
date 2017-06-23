@@ -7,9 +7,11 @@ import com.dgteam.dgbackend.repository.SchemaOrgHeaderRepository;
 import com.dgteam.dgbackend.service.ZipService;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.mongodb.BasicDBObject;
+import com.mongodb.client.gridfs.GridFSBucket;
 import com.mongodb.gridfs.GridFSDBFile;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.mongodb.core.query.Criteria;
+import org.springframework.data.mongodb.core.query.CriteriaDefinition;
 import org.springframework.data.mongodb.core.query.Query;
 import org.springframework.data.mongodb.gridfs.GridFsTemplate;
 import org.springframework.http.HttpStatus;
@@ -94,6 +96,29 @@ public class RecordController {
         header.setCreator(recordDTO.getCreator());
         schemaOrgHeaderRepository.save(header);
         return new ResponseEntity<>(new RecordDTO(header, files), HttpStatus.OK);
+    }
+
+    @CrossOrigin(origins = "http://localhost:4200")
+    @RequestMapping(value = "/add-file-metadata", method = RequestMethod.POST)
+    public ResponseEntity<RecordDTO> addFileMetadata(@RequestParam("dto") String recordDTOString){
+        RecordDTO recordDTO;
+        try {
+            recordDTO = new ObjectMapper().readValue(recordDTOString, RecordDTO.class);
+        } catch (IOException e) {
+            e.printStackTrace();
+            return new ResponseEntity<>(new RecordDTO(), HttpStatus.CONFLICT);
+        }
+        String recordId = recordDTO.getId();
+        String fileName = recordDTO.getName();
+        SchemaOrgHeader header = schemaOrgHeaderRepository.findById(recordId);
+        Query findFileToAddMetadataQuery = new Query(Criteria.where("metadata.recordId").is(recordId)
+                .and("metadata.fileName").is(fileName));
+        GridFSDBFile file = gridFsTemplate.findOne(
+                findFileToAddMetadataQuery);
+
+        // ???
+
+        return null;
     }
 
     @CrossOrigin(origins = "http://localhost:4200")
