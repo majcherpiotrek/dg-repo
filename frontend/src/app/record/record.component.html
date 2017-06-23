@@ -102,17 +102,21 @@
               <div id="fileViewHeading" class="list-group-item-heading">
                 <h4 class="pull-left">{{file}}</h4>
                 <div class="pull-right">
-                  <button type="button" class="btn btn-primary">Edit</button>
+                  <button type="button" class="btn btn-primary" (click)="editMetadataOn=!editMetadataOn">Edit</button>
                   <button type="button" class="btn btn-danger" (click)="deleteFile(file)">Delete</button>
+                </div>
+                <div *ngIf="editMetadataOn" style="clear: both">
+                  <app-file-metadata-edit
+                  [fileName] = "getFileName(file)"
+                  [metadata] = "getFileMetadata(file)"
+                  (metadataAdded) = "onMetadataAdded($event)"></app-file-metadata-edit>
                 </div>
               </div>
             </div>
           </div>
         </div>
       </div>
- 
       <button id="addFile" (click)="addNewAttachmentOn=!addNewAttachmentOn" type="button" class="btn btn-primary btn-block">Add new attachments</button>
-  
       <div *ngIf="addNewAttachmentOn">
         <label for="files-input" class="control-label">Select new file(s) to add:</label>
         <input id="files-input" type="file" class="form-control" style="margin: 5px" multiple (change)="fileChange($event)" placeholder="File(s) to upload"

@@ -18,6 +18,7 @@ import {AppRoutingModule} from './app-routing.module';
 import {SnippetService} from './services/snippet.service';
 import { DashboardPresentationComponent } from './dashboard-presentation/dashboard-presentation.component';
 import { RecordComponent } from './record/record.component';
+import { FileMetadataEditComponent } from './record/file-metadata-edit/file-metadata-edit.component';
 
 @NgModule({
   declarations: [
@@ -32,7 +33,8 @@ import { RecordComponent } from './record/record.component';
     RecordSnippetComponent,
     FileEditComponent,
     DashboardPresentationComponent,
-    RecordComponent
+    RecordComponent,
+    FileMetadataEditComponent
   ],
   imports: [
     BrowserModule,

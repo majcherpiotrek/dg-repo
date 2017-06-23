@@ -16,6 +16,7 @@ export class RecordComponent implements OnInit {
   @Input() url = 'url';
 
   addNewAttachmentOn: boolean = false;
+  editMetadataOn: boolean = false;
   private filesList: File[] = [];
   private fileHeaders: FileHeaderModel[] = [];
 
@@ -89,5 +90,9 @@ export class RecordComponent implements OnInit {
 
   getZip(id: string){
     window.open(this.recordService.getZip(id));
+  }
+
+  getFileName(file: File){
+    return file.name;
   }
 }

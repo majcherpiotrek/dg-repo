@@ -18,6 +18,7 @@ export class RecordService {
   private editRecordUrl = 'api/records/edit';
   private deleteFileUrl = 'api/records/delete-file';
   private addFileUrl = 'api/upload/add-file';
+  private addFileMetadataUrl = 'api/upload/add-file-metadata';
 
   constructor(private http: Http) {
   }
@@ -118,5 +119,15 @@ export class RecordService {
     const options = new RequestOptions({headers: headers});
     console.log('Sending POST with : ' + fileHeadersString);
     return this.http.post(this.backUrl + this.addFileUrl, formData, options);
+  }
+
+  addFileMetadata(id: string, file: File, fileHeaders: FileHeaderModel){
+    // ???
+    const formData = new FormData();
+    formData.append('recordId', id);
+    formData.append('fileName', file.name);
+    const headers = new Headers();
+    const options = new RequestOptions({headers: headers});
+    return this.http.post(this.backUrl + this.addFileMetadataUrl, formData, options);
   }
 }
