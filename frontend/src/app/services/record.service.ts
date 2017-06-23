@@ -19,6 +19,7 @@ export class RecordService {
   private deleteFileUrl = 'api/records/delete-file';
   private addFileUrl = 'api/upload/add-file';
   private addFileMetadataUrl = 'api/upload/add-file-metadata';
+  private getFileMetadataUrl = 'api/records/get-file-metadata?record-id=';
 
   constructor(private http: Http) {
   }
@@ -129,5 +130,10 @@ export class RecordService {
     const headers = new Headers();
     const options = new RequestOptions({headers: headers});
     return this.http.post(this.backUrl + this.addFileMetadataUrl, formData, options);
+  }
+
+  getFileMetadata(id: string, fileName: string) {
+    return this.http.get(this.backUrl + this.getFileMetadataUrl + id
+                          + '&filename=' + fileName).map((res: Response) => res.json());
   }
 }

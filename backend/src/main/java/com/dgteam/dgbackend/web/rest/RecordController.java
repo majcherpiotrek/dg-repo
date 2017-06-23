@@ -151,6 +151,7 @@ public class RecordController {
         return new ResponseEntity<>(new RecordDTO(header, files), HttpStatus.OK);
     }
 
+    
     private void prepareResponse(HttpServletResponse response, String recordName) {
         response.addHeader("Content-Disposition", "attachment; filename=\"" + recordName + "\"");
         response.setStatus(HttpServletResponse.SC_OK);
